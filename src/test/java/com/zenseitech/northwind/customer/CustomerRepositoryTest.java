@@ -69,12 +69,12 @@ public class CustomerRepositoryTest {
     }
 
     @Test
-    public void findByCustomerName() {
+    public void findByCountry() {
         // https://www.baeldung.com/spring-data-jpa-pagination-sorting
-        Pageable pageable = PageRequest.of(0, 2, Sort.by("CompanyName").descending());
+        Pageable pageable = PageRequest.of(0, 1, Sort.by("CompanyName").descending());
         Page customerPage = customerRepository.findByCountry("Mexico", pageable);
 
-        assertThat(customerPage.getTotalPages()).isEqualTo(1);
+        assertThat(customerPage.getNumberOfElements()).isEqualTo(1);
         assertThat(customerPage.getTotalElements()).isEqualTo(2);
     }
 
@@ -85,7 +85,7 @@ public class CustomerRepositoryTest {
         Customer customer = new Customer();
         customer.setId(id);
         customer.setCompanyName(name);
-        customer.setCountry("Mexico");
+        customer.setCountry(country);
         return customer;
     }
 }
