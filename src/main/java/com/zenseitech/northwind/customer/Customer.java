@@ -3,6 +3,7 @@ package com.zenseitech.northwind.customer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class Customer {
 
@@ -18,38 +20,14 @@ public class Customer {
     private String id;
 
     @Column(nullable = false, unique = true)
-    private String CompanyName;
-    private String ContactName;
-    private String ContactTitle;
-    private String Address;
-    private String City;
-    private String Region;
-    private String PostalCode;
-    private String Country;
-    private String Phone;
-    private String Fax;
-
-    public Customer(String id,
-                    String companyName,
-                    String contactName,
-                    String contactTitle,
-                    String address,
-                    String city,
-                    String region,
-                    String postalCode,
-                    String country,
-                    String phone,
-                    String fax) {
-        this.id = id;
-        CompanyName = companyName;
-        ContactName = contactName;
-        ContactTitle = contactTitle;
-        Address = address;
-        City = city;
-        Region = region;
-        PostalCode = postalCode;
-        Country = country;
-        Phone = phone;
-        Fax = fax;
-    }
+    private String companyName;
+    private String contactName;
+    private String contactTitle;
+    private String address;
+    private String city;
+    private String region;
+    private String postalCode;
+    private String country;
+    private String phone;
+    private String fax;
 }
