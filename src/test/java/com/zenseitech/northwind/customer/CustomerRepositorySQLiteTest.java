@@ -1,12 +1,12 @@
 package com.zenseitech.northwind.customer;
 
+import com.zenseitech.northwind.SearchType;
 import com.zenseitech.northwind.configuration.DataSourceConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -63,7 +63,7 @@ public class CustomerRepositorySQLiteTest {
 
         int offset = 0;
         int size = 3;
-        String region = "North America";
+        String region = "North";
         String country = "USA";
         Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
 
@@ -91,14 +91,10 @@ public class CustomerRepositorySQLiteTest {
         int size = 3;
         Customer customer = Customer.builder()
                 .country("USA").build();
+        CustomerSearch customerSearch = CustomerSearch.builder().customer(customer).build();
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
-
-        Specification<Customer> specification = Specification
-                .where(customer.getCountry() == null ? null : CustomerRepository.countryContains(customer.getCountry()))
-                .and(customer.getRegion() == null ? null : CustomerRepository.regionContains(customer.getRegion()));
-
-        Page<Customer> customerPage = customerRepository.findAll(specification, pageable);
+        Page<Customer> customerPage = customerRepository.findAll(CustomerRepository.getSpecification(customerSearch), pageable);
 
         assertThat(customerPage.getNumberOfElements()).isEqualTo(3);
         assertThat(customerPage.getTotalElements()).isEqualTo(13);
@@ -113,15 +109,14 @@ public class CustomerRepositorySQLiteTest {
         int offset = 0;
         int size = 3;
         Customer customer = Customer.builder()
-                .region("Western Europe").build();
+                .region("Western").build();
+        CustomerSearch customerSearch = CustomerSearch.builder()
+                .customer(customer)
+                .regionSearchType(SearchType.CONTAINS)
+                .build();
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
-
-        Specification<Customer> specification = Specification
-                .where(customer.getCountry() == null ? null : CustomerRepository.countryContains(customer.getCountry()))
-                .and(customer.getRegion() == null ? null : CustomerRepository.regionContains(customer.getRegion()));
-
-        Page<Customer> customerPage = customerRepository.findAll(specification, pageable);
+        Page<Customer> customerPage = customerRepository.findAll(CustomerRepository.getSpecification(customerSearch), pageable);
 
         assertThat(customerPage.getNumberOfElements()).isEqualTo(3);
         assertThat(customerPage.getTotalElements()).isEqualTo(28);
@@ -138,17 +133,34 @@ public class CustomerRepositorySQLiteTest {
                 .region("Western Europe")
                 .country("France")
                 .build();
+        CustomerSearch customerSearch = CustomerSearch.builder().customer(customer).build();
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
 
-        Specification<Customer> specification = Specification
-                .where(customer.getCountry() == null ? null : CustomerRepository.countryContains(customer.getCountry()))
-                .and(customer.getRegion() == null ? null : CustomerRepository.regionContains(customer.getRegion()));
-
-        Page<Customer> customerPage = customerRepository.findAll(specification, pageable);
+        Page<Customer> customerPage = customerRepository.findAll(CustomerRepository.getSpecification(customerSearch), pageable);
 
         assertThat(customerPage.getNumberOfElements()).isEqualTo(3);
         assertThat(customerPage.getTotalElements()).isEqualTo(11);
+    }
+
+    @Test
+    public void findBySpecification_City() {
+//        https://dimitr.im/writing-dynamic-queries-with-spring-data-jpa
+//        https://www.logicbig.com/tutorials/spring-framework/spring-data/query-example-matchers.html
+
+        int offset = 0;
+        int size = 3;
+        Customer customer = Customer.builder()
+                .city("Portland")
+                .build();
+        CustomerSearch customerSearch = CustomerSearch.builder().customer(customer).build();
+
+        Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
+
+        Page<Customer> customerPage = customerRepository.findAll(CustomerRepository.getSpecification(customerSearch), pageable);
+
+        assertThat(customerPage.getNumberOfElements()).isEqualTo(2);
+        assertThat(customerPage.getTotalElements()).isEqualTo(2);
     }
 
 

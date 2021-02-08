@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -78,10 +77,8 @@ public class CustomerRepositoryTest {
         Customer customer = Customer.builder()
                 .country("Mexico")
                 .build();
-        Specification<Customer> specification = Specification
-                .where(customer.getCountry() == null ? null : CustomerRepository.countryContains(customer.getCountry()))
-                .and(customer.getRegion() == null ? null : CustomerRepository.regionContains(customer.getRegion()));
-        Page<Customer> customerPage = customerRepository.findAll(specification, pageable);
+        CustomerSearch customerSearch = CustomerSearch.builder().customer(customer).build();
+        Page<Customer> customerPage = customerRepository.findAll(CustomerRepository.getSpecification(customerSearch), pageable);
 
         assertThat(customerPage.getNumberOfElements()).isEqualTo(1);
         assertThat(customerPage.getContent().get(0).getCompanyName()).isEqualTo("customer2");

@@ -12,6 +12,8 @@ import javax.sql.DataSource;
 @PropertySource("classpath:sql/jdbc.properties")
 public class DataSourceConfiguration {
 
+//    https://www.baeldung.com/spring-profiles
+
     public static final String PROFILE_SQLITE = "sqlite";
 
     @Autowired
