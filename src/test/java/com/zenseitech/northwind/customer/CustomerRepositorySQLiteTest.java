@@ -5,16 +5,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -28,11 +27,9 @@ public class CustomerRepositorySQLiteTest {
 
     @Test
     public void getInitialCountOfCustomers() {
-//        Iterable<Customer> customers = customerRepository.findAll();
-//        assertThat(customers).hasSize(2);
         assertThat(customerRepository.count()).isEqualTo(91);
 
-        Customer notFoundCustomer = new Customer();
+        Customer notFoundCustomer = Customer.builder().build();
         notFoundCustomer.setCompanyName("Not Found");
         Customer customer = customerRepository.findById("AROUT").orElse(notFoundCustomer);
 
@@ -43,15 +40,121 @@ public class CustomerRepositorySQLiteTest {
     }
 
     @Test
-    public void findByCountry() {
-        // https://www.baeldung.com/spring-data-jpa-pagination-sorting
+    public void savesCustomerCorrectly() {
+
+        Iterable<Customer> customers = customerRepository.findAll();
+        assertThat(customers).hasSize(91);
+
+        // having ...
+        Customer newCustomer = createCustomer("3", "customer3", "Mexico");
+
+        // when ...
+        Customer savedCustomer = customerRepository.save(newCustomer);
+
+        // then ...
+        assertThat(savedCustomer.toString()).isEqualTo(newCustomer.toString());
+        assertThat(customerRepository.count()).isEqualTo(92);
+    }
+
+    @Test
+    public void findByMatcher() {
+//        https://dimitr.im/writing-dynamic-queries-with-spring-data-jpa
+//        https://www.logicbig.com/tutorials/spring-framework/spring-data/query-example-matchers.html
+
         int offset = 0;
         int size = 3;
+        String region = "North America";
         String country = "USA";
         Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
-        Page customerPage = customerRepository.findByCountry(country, pageable);
+
+        ExampleMatcher matcher = ExampleMatcher
+                .matchingAll()
+                .withMatcher("region", contains().ignoreCase())
+                .withMatcher("country", contains().ignoreCase());
+        Customer customer = Customer
+                .builder()
+                .region(region)
+                .country(country)
+                .build();
+        Page<Customer> customerPage = customerRepository.findAll(Example.of(customer, matcher), pageable);
+
         assertThat(customerPage.getNumberOfElements()).isEqualTo(3);
         assertThat(customerPage.getTotalElements()).isEqualTo(13);
-//        System.out.println("----> " + customerPage.getContent().toString());
+    }
+
+    @Test
+    public void findBySpecification_Country() {
+//        https://dimitr.im/writing-dynamic-queries-with-spring-data-jpa
+//        https://www.logicbig.com/tutorials/spring-framework/spring-data/query-example-matchers.html
+
+        int offset = 0;
+        int size = 3;
+        Customer customer = Customer.builder()
+                .country("USA").build();
+
+        Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
+
+        Specification<Customer> specification = Specification
+                .where(customer.getCountry() == null ? null : CustomerRepository.countryContains(customer.getCountry()))
+                .and(customer.getRegion() == null ? null : CustomerRepository.regionContains(customer.getRegion()));
+
+        Page<Customer> customerPage = customerRepository.findAll(specification, pageable);
+
+        assertThat(customerPage.getNumberOfElements()).isEqualTo(3);
+        assertThat(customerPage.getTotalElements()).isEqualTo(13);
+    }
+
+
+    @Test
+    public void findBySpecification_Region() {
+//        https://dimitr.im/writing-dynamic-queries-with-spring-data-jpa
+//        https://www.logicbig.com/tutorials/spring-framework/spring-data/query-example-matchers.html
+
+        int offset = 0;
+        int size = 3;
+        Customer customer = Customer.builder()
+                .region("Western Europe").build();
+
+        Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
+
+        Specification<Customer> specification = Specification
+                .where(customer.getCountry() == null ? null : CustomerRepository.countryContains(customer.getCountry()))
+                .and(customer.getRegion() == null ? null : CustomerRepository.regionContains(customer.getRegion()));
+
+        Page<Customer> customerPage = customerRepository.findAll(specification, pageable);
+
+        assertThat(customerPage.getNumberOfElements()).isEqualTo(3);
+        assertThat(customerPage.getTotalElements()).isEqualTo(28);
+    }
+
+    @Test
+    public void findBySpecification_Region_Country() {
+//        https://dimitr.im/writing-dynamic-queries-with-spring-data-jpa
+//        https://www.logicbig.com/tutorials/spring-framework/spring-data/query-example-matchers.html
+
+        int offset = 0;
+        int size = 3;
+        Customer customer = Customer.builder()
+                .region("Western Europe")
+                .country("France")
+                .build();
+
+        Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
+
+        Specification<Customer> specification = Specification
+                .where(customer.getCountry() == null ? null : CustomerRepository.countryContains(customer.getCountry()))
+                .and(customer.getRegion() == null ? null : CustomerRepository.regionContains(customer.getRegion()));
+
+        Page<Customer> customerPage = customerRepository.findAll(specification, pageable);
+
+        assertThat(customerPage.getNumberOfElements()).isEqualTo(3);
+        assertThat(customerPage.getTotalElements()).isEqualTo(11);
+    }
+
+
+    // ==================================================================
+
+    private Customer createCustomer(String id, String name, String country) {
+        return Customer.builder().id(id).companyName(name).country(country).build();
     }
 }

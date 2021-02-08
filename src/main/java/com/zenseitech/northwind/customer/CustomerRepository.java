@@ -2,16 +2,26 @@ package com.zenseitech.northwind.customer;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface CustomerRepository extends CrudRepository<Customer, String> {
+import java.text.MessageFormat;
 
-    Page<Customer> findByCountry(String country, Pageable pageable);
+public interface CustomerRepository extends JpaRepository<Customer, String>, JpaSpecificationExecutor<Customer> {
 
     Page<Customer> findAll(Pageable pageable);
 
-    @Query("select count(id) from Customer c where c.country = ?1")
-    long countByCountry(String country);
+    static Specification<Customer> countryContains(String expression) {
+        return (root, query, builder) -> builder.like(root.get("country"), contains(expression));
+    }
+
+    static Specification<Customer> regionContains(String expression) {
+        return (root, query, builder) -> builder.like(root.get("region"), contains(expression));
+    }
+
+    private static String contains(String expression) {
+        return MessageFormat.format("%{0}%", expression);
+    }
 
 }

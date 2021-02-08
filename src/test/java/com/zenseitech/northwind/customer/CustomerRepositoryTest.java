@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,8 +59,7 @@ public class CustomerRepositoryTest {
         Iterable<Customer> customers = customerRepository.findAll();
         assertThat(customers).hasSize(2);
 
-        Customer notFoundCustomer = new Customer();
-        notFoundCustomer.setCompanyName("Not Found");
+        Customer notFoundCustomer = Customer.builder().companyName("Not Found").build();
 
         Customer customer = customerRepository.findById("2").orElse(notFoundCustomer);
         assertThat(customer.getId()).isEqualTo("2");
@@ -71,10 +71,21 @@ public class CustomerRepositoryTest {
     @Test
     public void findByCountry() {
         // https://www.baeldung.com/spring-data-jpa-pagination-sorting
-        Pageable pageable = PageRequest.of(0, 1, Sort.by("CompanyName").descending());
-        Page customerPage = customerRepository.findByCountry("Mexico", pageable);
+        int offset = 0;
+        int size = 1;
+        Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").descending());
+
+        Customer customer = Customer.builder()
+                .country("Mexico")
+                .build();
+        Specification<Customer> specification = Specification
+                .where(customer.getCountry() == null ? null : CustomerRepository.countryContains(customer.getCountry()))
+                .and(customer.getRegion() == null ? null : CustomerRepository.regionContains(customer.getRegion()));
+        Page<Customer> customerPage = customerRepository.findAll(specification, pageable);
 
         assertThat(customerPage.getNumberOfElements()).isEqualTo(1);
+        assertThat(customerPage.getContent().get(0).getCompanyName()).isEqualTo("customer2");
+
         assertThat(customerPage.getTotalElements()).isEqualTo(2);
     }
 
@@ -82,10 +93,6 @@ public class CustomerRepositoryTest {
     // ==================================================================
 
     private Customer createCustomer(String id, String name, String country) {
-        Customer customer = new Customer();
-        customer.setId(id);
-        customer.setCompanyName(name);
-        customer.setCountry(country);
-        return customer;
+        return Customer.builder().id(id).companyName(name).country(country).build();
     }
 }
