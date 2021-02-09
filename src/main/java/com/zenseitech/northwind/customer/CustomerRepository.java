@@ -1,6 +1,6 @@
 package com.zenseitech.northwind.customer;
 
-import com.zenseitech.northwind.SearchType;
+import com.zenseitech.northwind.util.SearchType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -25,7 +25,7 @@ public interface CustomerRepository extends JpaRepository<Customer, String>, Jpa
             case ENDS:
                 return (root, query, builder) -> builder.like(root.get(field), endWith(expression));
             default:
-                return (root, query, builder) -> builder.like(root.get(field), expression);
+                return (root, query, builder) -> builder.equal(root.get(field), expression);
         }
     }
 

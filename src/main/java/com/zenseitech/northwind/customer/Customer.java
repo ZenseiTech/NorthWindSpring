@@ -14,7 +14,6 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @ToString
-//@NoArgsConstructor
 public class Customer {
 
     @Id

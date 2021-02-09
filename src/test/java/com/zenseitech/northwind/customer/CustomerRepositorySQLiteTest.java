@@ -1,6 +1,6 @@
 package com.zenseitech.northwind.customer;
 
-import com.zenseitech.northwind.SearchType;
+import com.zenseitech.northwind.util.SearchType;
 import com.zenseitech.northwind.configuration.DataSourceConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
