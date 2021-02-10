@@ -48,52 +48,52 @@ public class ProductSearch {
         for(Search search : searchForm.getSearch()) {
             if(search.getField().equalsIgnoreCase("id")) {
                 product.setId((String)search.getValue());
-                productSearch.setIdField(search.getField().toLowerCase());
+                productSearch.setIdField(search.getField());
                 productSearch.setIdSearchType(SearchType.valueOf(search.getOperator().toUpperCase().toUpperCase()));
 
             } else if(search.getField().equalsIgnoreCase("productName")) {
                 product.setProductName((String)search.getValue());
-                productSearch.setProductNameField(search.getField().toLowerCase());
+                productSearch.setProductNameField(search.getField());
                 productSearch.setProductNameSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if(search.getField().equalsIgnoreCase("supplierId")) {
                 product.setSupplierId((Integer)search.getValue());
-                productSearch.setSupplierIdField(search.getField().toLowerCase());
+                productSearch.setSupplierIdField(search.getField());
                 productSearch.setSupplierIdSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if(search.getField().equalsIgnoreCase("categoryId")) {
                 product.setCategoryId((Integer)search.getValue());
-                productSearch.setCategoryIdField(search.getField().toLowerCase());
+                productSearch.setCategoryIdField(search.getField());
                 productSearch.setCategoryIdSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if(search.getField().equalsIgnoreCase("quantityPerUnit")) {
                 product.setQuantityPerUnit((String)search.getValue());
-                productSearch.setQuantityPerUnitField(search.getField().toLowerCase());
+                productSearch.setQuantityPerUnitField(search.getField());
                 productSearch.setQuantityPerUnitSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if(search.getField().equalsIgnoreCase("unitPrice")) {
                 product.setUnitPrice((BigDecimal)search.getValue());
-                productSearch.setUnitPriceField(search.getField().toLowerCase());
+                productSearch.setUnitPriceField(search.getField());
                 productSearch.setUnitPriceSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if(search.getField().equalsIgnoreCase("unitsInStock")) {
                 product.setUnitsInStock((Integer)search.getValue());
-                productSearch.setUnitsInStockField(search.getField().toLowerCase());
+                productSearch.setUnitsInStockField(search.getField());
                 productSearch.setUnitsInStockSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if(search.getField().equalsIgnoreCase("unitsOnOrder")) {
                 product.setUnitsOnOrder((Integer)search.getValue());
-                productSearch.setUnitsOnOrderField(search.getField().toLowerCase());
+                productSearch.setUnitsOnOrderField(search.getField());
                 productSearch.setUnitsOnOrderSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if(search.getField().equalsIgnoreCase("reorderLevel")) {
                 product.setReorderLevel((Integer)search.getValue());
-                productSearch.setReorderLevelField(search.getField().toLowerCase());
+                productSearch.setReorderLevelField(search.getField());
                 productSearch.setReorderLevelSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if(search.getField().equalsIgnoreCase("discontinued")) {
                 product.setDiscontinued((Integer)search.getValue());
-                productSearch.setDiscontinuedField(search.getField().toLowerCase());
+                productSearch.setDiscontinuedField(search.getField());
                 productSearch.setDiscontinuedSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             }

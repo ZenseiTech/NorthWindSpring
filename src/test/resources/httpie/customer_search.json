@@ -1,0 +1,20 @@
+{
+  "cmd": "cmd",
+  "limit": 10,
+  "offset": 0,
+  "selected": [
+    10,
+    20
+  ],
+  "searchLogic": "AND",
+  "search": [
+    { "field": "country", "type": "text", "value": "USA", "operator": "is" },
+    { "field": "city", "type": "text", "value": "Portland", "operator": "is" }
+  ],
+  "sort": [
+    {
+      "field": "companyName",
+      "direction": "ASC"
+    }
+  ]
+}

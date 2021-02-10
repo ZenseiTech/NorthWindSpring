@@ -1,0 +1,12 @@
+{
+  "cmd":"get",
+  "selected":[],
+  "limit":100,
+  "offset":0,
+  "sort": [
+    {
+      "field": "id",
+      "direction": "DESC"
+    }
+  ]
+}

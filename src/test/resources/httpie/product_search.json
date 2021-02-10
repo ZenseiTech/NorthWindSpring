@@ -1,0 +1,20 @@
+{
+  "cmd": "cmd",
+  "limit": 10,
+  "offset": 0,
+  "selected": [
+    10,
+    20
+  ],
+  "searchLogic": "AND",
+  "search": [
+    { "field": "supplierId", "type": "int", "value": 7, "operator": "is" },
+    { "field": "productName", "type": "text", "value": "Pavlova", "operator": "is" }
+  ],
+  "sort": [
+    {
+      "field": "productName",
+      "direction": "ASC"
+    }
+  ]
+}

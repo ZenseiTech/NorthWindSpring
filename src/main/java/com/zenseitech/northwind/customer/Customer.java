@@ -1,6 +1,5 @@
 package com.zenseitech.northwind.customer;
 
-import com.zenseitech.northwind.util.SpecificationRoot;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -31,4 +30,12 @@ public class Customer  {
     private String country;
     private String phone;
     private String fax;
+
+    /**
+     * w2ui unique required value
+     * @return
+     */
+    public String getRecId() {
+        return id;
+    }
 }

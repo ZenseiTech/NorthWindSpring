@@ -18,7 +18,6 @@ import java.math.BigDecimal;
 public class Product {
 
     public Product() {
-
     }
 
     @Id
@@ -34,4 +33,12 @@ public class Product {
     private int unitsOnOrder = -1;
     private int reorderLevel = -1;
     private int discontinued = -1;
+
+    /**
+     * w2ui unique required value
+     * @return
+     */
+    public String getRecId() {
+        return id;
+    }
 }

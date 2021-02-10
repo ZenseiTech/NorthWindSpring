@@ -22,12 +22,14 @@ public class SearchForm {
 
     public Pageable getPageable() {
         Pageable pageable = PageRequest.of(getOffset(), getLimit());
-        for(Sort sort : getSort()) {
-            pageable = PageRequest.of(getOffset(), getLimit(),
-                    org.springframework.data.domain.Sort.by(sort.getField()).descending());
-            if(sort.getDirection().equalsIgnoreCase("ASC")) {
+        if(getSort() != null) {
+            for(Sort sort : getSort()) {
                 pageable = PageRequest.of(getOffset(), getLimit(),
-                        org.springframework.data.domain.Sort.by(sort.getField()).ascending());
+                        org.springframework.data.domain.Sort.by(sort.getField()).descending());
+                if(sort.getDirection().equalsIgnoreCase("ASC")) {
+                    pageable = PageRequest.of(getOffset(), getLimit(),
+                            org.springframework.data.domain.Sort.by(sort.getField()).ascending());
+                }
             }
         }
         return pageable;

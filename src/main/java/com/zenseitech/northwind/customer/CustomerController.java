@@ -1,5 +1,7 @@
 package com.zenseitech.northwind.customer;
 
+import com.zenseitech.northwind.product.Product;
+import com.zenseitech.northwind.util.RecordDomain;
 import com.zenseitech.northwind.util.SearchForm;
 import com.zenseitech.northwind.util.SearchType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,23 +26,23 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping("/customers")
-    public List<Customer> searchCustomers() {
-        Customer customer = Customer.builder().country("USA").build();
-        CustomerSearch customerSearch = CustomerSearch.builder()
-                .customer(customer)
-                .countrySearchType(SearchType.CONTAINS).build();
-        Pageable pageable = PageRequest.of(0, 3, Sort.by("CompanyName").ascending());
-        Page<Customer> customerPage = customerService.search(CustomerRepository.getSpecification(customerSearch), pageable);
-        return customerPage.getContent();
-    }
-
     @PostMapping("/customers")
-    public List<Customer> searchCustomers(@RequestBody SearchForm searchForm) {
+    public RecordDomain searchCustomers(@RequestBody SearchForm searchForm) {
         System.out.println("====> " + searchForm.toString());
-        CustomerSearch customerSearch = CustomerSearch.get(searchForm);
         Pageable pageable = searchForm.getPageable();
-        Page<Customer> customerPage = customerService.search(CustomerRepository.getSpecification(customerSearch), pageable);
-        return customerPage.getContent();
+        Page<Customer> customerPage;
+        RecordDomain recordDomain = new RecordDomain();
+        recordDomain.setStatus("success");
+
+        if(searchForm.getSearch() == null) {
+            customerPage = customerService.search(pageable);
+        } else {
+            CustomerSearch customerSearch = CustomerSearch.get(searchForm);
+            customerPage = customerService.search(CustomerRepository.getSpecification(customerSearch), pageable);
+        }
+
+        recordDomain.setTotal(customerPage.getTotalElements());
+        recordDomain.setRecords(List.class.cast(customerPage.getContent()));
+        return recordDomain;
     }
 }
