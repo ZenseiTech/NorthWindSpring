@@ -55,7 +55,11 @@ public class CustomerServiceDefaultTest {
         Customer customer = Customer.builder()
                 .country("USA")
                 .build();
-        CustomerSearch customerSearch = CustomerSearch.builder().customer(customer).build();
+        CustomerSearch customerSearch = CustomerSearch.builder()
+                .customer(customer)
+                .countryField("country")
+                .build();
+
         Page<Customer> customerPage = customerService.search(CustomerRepository.getSpecification(customerSearch), pageable);
 
         assertThat(customerPage.getNumberOfElements()).isEqualTo(3);
@@ -83,6 +87,9 @@ public class CustomerServiceDefaultTest {
         CustomerSearch customerSearch = CustomerSearch.builder().
                 customer(customer).
                 contactTitleSearchType(SearchType.CONTAINS).
+                countryField("country").
+                cityField("city").
+                contactTitleField("contactTitle").
                 build();
         Page<Customer> customerPage = customerService.search(CustomerRepository.getSpecification(customerSearch), pageable);
 

@@ -77,7 +77,11 @@ public class CustomerRepositoryTest {
         Customer customer = Customer.builder()
                 .country("Mexico")
                 .build();
-        CustomerSearch customerSearch = CustomerSearch.builder().customer(customer).build();
+        CustomerSearch customerSearch = CustomerSearch.builder()
+                .customer(customer)
+                .countryField("country")
+                .build();
+
         Page<Customer> customerPage = customerRepository.findAll(CustomerRepository.getSpecification(customerSearch), pageable);
 
         assertThat(customerPage.getNumberOfElements()).isEqualTo(1);

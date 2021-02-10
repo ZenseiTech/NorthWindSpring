@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.math.BigDecimal;
 import java.text.MessageFormat;
 
 @Getter
@@ -17,7 +18,7 @@ public class Search {
     private Object value;
     private String operator;
 
-    public static Specification<Customer> getStringSpecification(String expression, String field, SearchType searchType) {
+    public static Specification<Object> getStringSpecification(String expression, String field, SearchType searchType) {
         if(searchType == null) {
             searchType = SearchType.IS;
         }
@@ -33,23 +34,23 @@ public class Search {
         }
     }
 
-    public static Specification<Customer> getNumberSpecification(String expression, String field, SearchType searchType) {
+    public static Specification<Object> getNumberSpecification(BigDecimal expression, String field, SearchType searchType) {
         if(searchType == null) {
             searchType = SearchType.IS;
         }
         switch(searchType) {
             case BETWEEN:
-                return (root, query, builder) -> builder.like(root.get(field), contains(expression));
+                return (root, query, builder) -> builder.between(root.get(field), expression, expression);
             case LESS_THAN:
-                return (root, query, builder) -> builder.like(root.get(field), startWith(expression));
+                return (root, query, builder) -> builder.lessThan(root.get(field), expression);
             case MORE_THAN:
-                return (root, query, builder) -> builder.like(root.get(field), endWith(expression));
+                return (root, query, builder) -> builder.greaterThan(root.get(field), expression);
             default:
                 return (root, query, builder) -> builder.equal(root.get(field), expression);
         }
     }
 
-    public static Specification<Customer> getDateSpecification(String expression, String field, SearchType searchType) {
+    public static Specification<Object> getDateSpecification(String expression, String field, SearchType searchType) {
         if(searchType == null) {
             searchType = SearchType.IS;
         }

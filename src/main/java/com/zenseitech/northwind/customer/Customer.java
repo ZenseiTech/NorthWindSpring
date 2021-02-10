@@ -1,5 +1,6 @@
 package com.zenseitech.northwind.customer;
 
+import com.zenseitech.northwind.util.SpecificationRoot;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -14,7 +15,7 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @ToString
-public class Customer {
+public class Customer  {
 
     @Id
     private String id;

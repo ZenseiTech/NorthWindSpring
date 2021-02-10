@@ -91,7 +91,10 @@ public class CustomerRepositorySQLiteTest {
         int size = 3;
         Customer customer = Customer.builder()
                 .country("USA").build();
-        CustomerSearch customerSearch = CustomerSearch.builder().customer(customer).build();
+        CustomerSearch customerSearch = CustomerSearch.builder()
+                .customer(customer)
+                .countryField("country")
+                .build();
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
         Page<Customer> customerPage = customerRepository.findAll(CustomerRepository.getSpecification(customerSearch), pageable);
@@ -113,6 +116,7 @@ public class CustomerRepositorySQLiteTest {
         CustomerSearch customerSearch = CustomerSearch.builder()
                 .customer(customer)
                 .regionSearchType(SearchType.CONTAINS)
+                .regionField("region")
                 .build();
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
@@ -133,7 +137,11 @@ public class CustomerRepositorySQLiteTest {
                 .region("Western Europe")
                 .country("France")
                 .build();
-        CustomerSearch customerSearch = CustomerSearch.builder().customer(customer).build();
+        CustomerSearch customerSearch = CustomerSearch.builder()
+                .customer(customer)
+                .regionField("region")
+                .countryField("country")
+                .build();
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
 
@@ -153,7 +161,10 @@ public class CustomerRepositorySQLiteTest {
         Customer customer = Customer.builder()
                 .city("Portland")
                 .build();
-        CustomerSearch customerSearch = CustomerSearch.builder().customer(customer).build();
+        CustomerSearch customerSearch = CustomerSearch.builder()
+                .customer(customer)
+                .cityField("city")
+                .build();
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
 

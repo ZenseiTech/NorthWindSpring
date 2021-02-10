@@ -13,7 +13,7 @@ public interface CustomerRepository extends JpaRepository<Customer, String>, Jpa
 
     static Specification<Customer> getSpecification(CustomerSearch customerSearch) {
         Customer customer = customerSearch.getCustomer();
-        Specification<Customer> specification = Specification
+        Specification<Object> specification = Specification
                 .where(customer.getId() == null ? null :
                         Search.getStringSpecification(customer.getId(), customerSearch.getIdField(), customerSearch.getIdSearchType()))
                 .and(customer.getCompanyName() == null ? null :
@@ -36,6 +36,6 @@ public interface CustomerRepository extends JpaRepository<Customer, String>, Jpa
                         Search.getStringSpecification(customer.getFax(), customerSearch.getFaxField(), customerSearch.getFaxSearchType()))
                 .and(customer.getPostalCode() == null ? null :
                         Search.getStringSpecification(customer.getPostalCode(), customerSearch.getPostalCodeField(), customerSearch.getPostalCodeSearchType()));
-        return specification;
+        return Specification.class.cast(specification);
     }
 }
