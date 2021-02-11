@@ -78,7 +78,7 @@ public class CustomerRepositoryTest {
                 .country("Mexico")
                 .build();
         CustomerSearch customerSearch = CustomerSearch.builder()
-                .customer(customer)
+                .countryValue("Mexico")
                 .countryField("country")
                 .build();
 

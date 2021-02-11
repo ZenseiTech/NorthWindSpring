@@ -52,11 +52,8 @@ public class CustomerServiceDefaultTest {
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
 
-        Customer customer = Customer.builder()
-                .country("USA")
-                .build();
         CustomerSearch customerSearch = CustomerSearch.builder()
-                .customer(customer)
+                .countryValue("USA")
                 .countryField("country")
                 .build();
 
@@ -79,18 +76,15 @@ public class CustomerServiceDefaultTest {
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
 
-        Customer customer = Customer.builder()
-                .country("USA")
-                .city("Portland")
-                .contactTitle("Sales")
+        CustomerSearch customerSearch = CustomerSearch.builder()
+                .countryValue("USA")
+                .cityValue("Portland")
+                .contactTitleValue("Sales")
+                .contactTitleSearchType(SearchType.CONTAINS)
+                .countryField("country")
+                .cityField("city")
+                .contactTitleField("contactTitle")
                 .build();
-        CustomerSearch customerSearch = CustomerSearch.builder().
-                customer(customer).
-                contactTitleSearchType(SearchType.CONTAINS).
-                countryField("country").
-                cityField("city").
-                contactTitleField("contactTitle").
-                build();
         Page<Customer> customerPage = customerService.search(CustomerRepository.getSpecification(customerSearch), pageable);
 
         assertThat(customerPage.getNumberOfElements()).isEqualTo(1);

@@ -12,30 +12,30 @@ public interface CustomerRepository extends JpaRepository<Customer, String>, Jpa
     Page<Customer> findAll(Pageable pageable);
 
     static Specification<Customer> getSpecification(CustomerSearch customerSearch) {
-        Customer customer = customerSearch.getCustomer();
+
         Specification<Object> specification = Specification
-                .where(customer.getId() == null ? null :
-                        Search.getStringSpecification(customer.getId(), customerSearch.getIdField(), customerSearch.getIdSearchType()))
-                .and(customer.getCompanyName() == null ? null :
-                        Search.getStringSpecification(customer.getCompanyName(), customerSearch.getCompanyNameField(), customerSearch.getCompanyNameSearchType()))
-                .and(customer.getContactName() == null ? null :
-                        Search.getStringSpecification(customer.getContactName(), customerSearch.getContactNameField(), customerSearch.getContactNameSearchType()))
-                .and(customer.getContactTitle() == null ? null :
-                        Search.getStringSpecification(customer.getContactTitle(), customerSearch.getContactTitleField(), customerSearch.getContactTitleSearchType()))
-                .and(customer.getAddress() == null ? null :
-                        Search.getStringSpecification(customer.getAddress(), customerSearch.getAddressField(), customerSearch.getAddressSearchType()))
-                .and(customer.getCity() == null ? null :
-                        Search.getStringSpecification(customer.getCity(), customerSearch.getCityField(), customerSearch.getCitySearchType()))
-                .and(customer.getRegion() == null ? null :
-                        Search.getStringSpecification(customer.getRegion(), customerSearch.getRegionField(), customerSearch.getRegionSearchType()))
-                .and(customer.getCountry() == null ? null :
-                        Search.getStringSpecification(customer.getCountry(), customerSearch.getCountryField(), customerSearch.getCountrySearchType()))
-                .and(customer.getPhone() == null ? null :
-                        Search.getStringSpecification(customer.getPhone(), customerSearch.getPhoneField(), customerSearch.getPhoneSearchType()))
-                .and(customer.getFax() == null ? null :
-                        Search.getStringSpecification(customer.getFax(), customerSearch.getFaxField(), customerSearch.getFaxSearchType()))
-                .and(customer.getPostalCode() == null ? null :
-                        Search.getStringSpecification(customer.getPostalCode(), customerSearch.getPostalCodeField(), customerSearch.getPostalCodeSearchType()));
+                .where(customerSearch.getIdValue() == null ? null :
+                        Search.getStringSpecification(customerSearch.getIdValue(), customerSearch.getIdField(), customerSearch.getIdSearchType()))
+                .and(customerSearch.getCompanyNameValue() == null ? null :
+                        Search.getStringSpecification(customerSearch.getCompanyNameValue(), customerSearch.getCompanyNameField(), customerSearch.getCompanyNameSearchType()))
+                .and(customerSearch.getContactNameValue() == null ? null :
+                        Search.getStringSpecification(customerSearch.getContactNameValue(), customerSearch.getContactNameField(), customerSearch.getContactNameSearchType()))
+                .and(customerSearch.getContactTitleValue() == null ? null :
+                        Search.getStringSpecification(customerSearch.getContactTitleValue(), customerSearch.getContactTitleField(), customerSearch.getContactTitleSearchType()))
+                .and(customerSearch.getAddressValue() == null ? null :
+                        Search.getStringSpecification(customerSearch.getAddressValue(), customerSearch.getAddressField(), customerSearch.getAddressSearchType()))
+                .and(customerSearch.getCityValue() == null ? null :
+                        Search.getStringSpecification(customerSearch.getCityValue(), customerSearch.getCityField(), customerSearch.getCitySearchType()))
+                .and(customerSearch.getRegionValue() == null ? null :
+                        Search.getStringSpecification(customerSearch.getRegionValue(), customerSearch.getRegionField(), customerSearch.getRegionSearchType()))
+                .and(customerSearch.getCountryValue() == null ? null :
+                        Search.getStringSpecification(customerSearch.getCountryValue(), customerSearch.getCountryField(), customerSearch.getCountrySearchType()))
+                .and(customerSearch.getPhoneValue() == null ? null :
+                        Search.getStringSpecification(customerSearch.getPhoneValue(), customerSearch.getPhoneField(), customerSearch.getPhoneSearchType()))
+                .and(customerSearch.getFaxValue() == null ? null :
+                        Search.getStringSpecification(customerSearch.getFaxValue(), customerSearch.getFaxField(), customerSearch.getFaxSearchType()))
+                .and(customerSearch.getPostalCodeValue() == null ? null :
+                        Search.getStringSpecification(customerSearch.getPostalCodeValue(), customerSearch.getPostalCodeField(), customerSearch.getPostalCodeSearchType()));
         return Specification.class.cast(specification);
     }
 }

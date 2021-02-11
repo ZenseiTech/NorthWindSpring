@@ -1,0 +1,19 @@
+{
+  "cmd": "cmd",
+  "limit": 10,
+  "offset": 0,
+  "selected": [
+    10,
+    20
+  ],
+  "searchLogic": "AND",
+  "search": [
+    { "field": "id", "type": "int", "value": [2,5], "operator": "between" }
+  ],
+  "sort": [
+    {
+      "field": "productName",
+      "direction": "ASC"
+    }
+  ]
+}

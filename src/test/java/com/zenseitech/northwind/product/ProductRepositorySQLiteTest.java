@@ -4,6 +4,7 @@ import com.zenseitech.northwind.configuration.DataSourceConfiguration;
 import com.zenseitech.northwind.customer.Customer;
 import com.zenseitech.northwind.customer.CustomerRepository;
 import com.zenseitech.northwind.customer.CustomerSearch;
+import com.zenseitech.northwind.supplier.Supplier;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -35,12 +39,12 @@ public class ProductRepositorySQLiteTest {
 
         int offset = 0;
         int size = 3;
-        Product product = new Product();
-        product.setSupplierId(12);
+        List<Object> values = new ArrayList<>();
+        values.add(12);
 
         ProductSearch productSearch = ProductSearch.builder()
-                .product(product)
-                .supplierIdField("supplierId")
+                .supplierIdField("supplier")
+                .supplierIdValue(values)
                 .build();
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("ProductName").ascending());

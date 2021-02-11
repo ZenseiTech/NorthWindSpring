@@ -1,6 +1,5 @@
 package com.zenseitech.northwind.util;
 
-import com.zenseitech.northwind.customer.Customer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,6 +7,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.math.BigDecimal;
 import java.text.MessageFormat;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,13 +34,17 @@ public class Search {
         }
     }
 
-    public static Specification<Object> getNumberSpecification(BigDecimal expression, String field, SearchType searchType) {
+    public static Specification<Object> getIntegerSpecification(List<Object> expressions, String field, SearchType searchType) {
         if(searchType == null) {
             searchType = SearchType.IS;
         }
+
+        final Integer expression = (Integer) expressions.get(0);
+
         switch(searchType) {
             case BETWEEN:
-                return (root, query, builder) -> builder.between(root.get(field), expression, expression);
+                final Integer expression2 = (Integer) expressions.get(1);
+                return (root, query, builder) -> builder.between(root.get(field), expression, expression2);
             case LESS_THAN:
                 return (root, query, builder) -> builder.lessThan(root.get(field), expression);
             case MORE_THAN:

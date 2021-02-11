@@ -8,8 +8,9 @@
   ],
   "searchLogic": "AND",
   "search": [
-    { "field": "supplierId", "type": "int", "value": 7, "operator": "is" },
-    { "field": "productName", "type": "text", "value": "Pavlova", "operator": "is" }
+    { "field": "supplier", "type": "int", "value": 5, "operator": "is" },
+    { "field": "productName", "type": "text", "value": "Queso", "operator": "contains" },
+    { "field": "quantityPerUnit", "type": "text", "value": "10", "operator": "contains" }
   ],
   "sort": [
     {

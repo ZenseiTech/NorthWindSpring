@@ -20,7 +20,7 @@ public class SearchFormTest {
         CustomerSearch customerSearch = CustomerSearch.get(searchForm);
         Pageable pageable = searchForm.getPageable();
 
-        assertThat(customerSearch.getCustomer().getCity()).isEqualTo("Seatle");
+        assertThat(customerSearch.getCityValue()).isEqualTo("Seatle");
         assertThat(pageable.getSort().getOrderFor("city").isAscending()).isTrue();
     }
 

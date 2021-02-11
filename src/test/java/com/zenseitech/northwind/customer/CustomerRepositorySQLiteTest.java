@@ -89,10 +89,8 @@ public class CustomerRepositorySQLiteTest {
 
         int offset = 0;
         int size = 3;
-        Customer customer = Customer.builder()
-                .country("USA").build();
         CustomerSearch customerSearch = CustomerSearch.builder()
-                .customer(customer)
+                .countryValue("USA")
                 .countryField("country")
                 .build();
 
@@ -111,10 +109,9 @@ public class CustomerRepositorySQLiteTest {
 
         int offset = 0;
         int size = 3;
-        Customer customer = Customer.builder()
-                .region("Western").build();
+
         CustomerSearch customerSearch = CustomerSearch.builder()
-                .customer(customer)
+                .regionValue("Western")
                 .regionSearchType(SearchType.CONTAINS)
                 .regionField("region")
                 .build();
@@ -133,12 +130,10 @@ public class CustomerRepositorySQLiteTest {
 
         int offset = 0;
         int size = 3;
-        Customer customer = Customer.builder()
-                .region("Western Europe")
-                .country("France")
-                .build();
+
         CustomerSearch customerSearch = CustomerSearch.builder()
-                .customer(customer)
+                .regionValue("Western Europe")
+                .countryValue("France")
                 .regionField("region")
                 .countryField("country")
                 .build();
@@ -158,11 +153,9 @@ public class CustomerRepositorySQLiteTest {
 
         int offset = 0;
         int size = 3;
-        Customer customer = Customer.builder()
-                .city("Portland")
-                .build();
+
         CustomerSearch customerSearch = CustomerSearch.builder()
-                .customer(customer)
+                .cityValue("Portland")
                 .cityField("city")
                 .build();
 
