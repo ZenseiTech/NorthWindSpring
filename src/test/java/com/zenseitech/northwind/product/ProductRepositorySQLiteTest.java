@@ -5,7 +5,6 @@ import com.zenseitech.northwind.configuration.DataSourceConfiguration;
 import com.zenseitech.northwind.supplier.SupplierRepository;
 import com.zenseitech.northwind.util.Search;
 import com.zenseitech.northwind.util.SearchForm;
-import com.zenseitech.northwind.util.SearchType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
