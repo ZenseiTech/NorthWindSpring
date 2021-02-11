@@ -94,9 +94,10 @@ public class CustomerRepositorySQLiteTest {
                 .countryField("country")
                 .countrySearchType(SearchType.IS)
                 .build();
+        CustomerServiceDefault customerServiceDefault = new CustomerServiceDefault(customerRepository);
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
-        Page<Customer> customerPage = customerRepository.findAll(CustomerRepository.getSpecification(customerSearch), pageable);
+        Page<Customer> customerPage = customerRepository.findAll(customerServiceDefault.getSpecification(customerSearch), pageable);
 
         assertThat(customerPage.getNumberOfElements()).isEqualTo(3);
         assertThat(customerPage.getTotalElements()).isEqualTo(13);
@@ -117,8 +118,9 @@ public class CustomerRepositorySQLiteTest {
                 .regionField("region")
                 .build();
 
+        CustomerServiceDefault customerServiceDefault = new CustomerServiceDefault(customerRepository);
         Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
-        Page<Customer> customerPage = customerRepository.findAll(CustomerRepository.getSpecification(customerSearch), pageable);
+        Page<Customer> customerPage = customerRepository.findAll(customerServiceDefault.getSpecification(customerSearch), pageable);
 
         assertThat(customerPage.getNumberOfElements()).isEqualTo(3);
         assertThat(customerPage.getTotalElements()).isEqualTo(28);
@@ -143,7 +145,8 @@ public class CustomerRepositorySQLiteTest {
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
 
-        Page<Customer> customerPage = customerRepository.findAll(CustomerRepository.getSpecification(customerSearch), pageable);
+        CustomerServiceDefault customerServiceDefault = new CustomerServiceDefault(customerRepository);
+        Page<Customer> customerPage = customerRepository.findAll(customerServiceDefault.getSpecification(customerSearch), pageable);
 
         assertThat(customerPage.getNumberOfElements()).isEqualTo(3);
         assertThat(customerPage.getTotalElements()).isEqualTo(11);
@@ -165,7 +168,8 @@ public class CustomerRepositorySQLiteTest {
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
 
-        Page<Customer> customerPage = customerRepository.findAll(CustomerRepository.getSpecification(customerSearch), pageable);
+        CustomerServiceDefault customerServiceDefault = new CustomerServiceDefault(customerRepository);
+        Page<Customer> customerPage = customerRepository.findAll(customerServiceDefault.getSpecification(customerSearch), pageable);
 
         assertThat(customerPage.getNumberOfElements()).isEqualTo(2);
         assertThat(customerPage.getTotalElements()).isEqualTo(2);

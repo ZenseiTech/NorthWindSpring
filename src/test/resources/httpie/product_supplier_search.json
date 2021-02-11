@@ -1,0 +1,19 @@
+{
+  "cmd": "cmd",
+  "limit": 10,
+  "offset": 0,
+  "selected": [
+    10,
+    20
+  ],
+  "searchLogic": "AND",
+  "search": [
+    { "field": "supplierCompanyName", "type": "text", "value": "Pavlova, Ltd.", "operator": "is" }
+  ],
+  "sort": [
+    {
+      "field": "productName",
+      "direction": "ASC"
+    }
+  ]
+}

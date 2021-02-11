@@ -84,7 +84,8 @@ public class CustomerRepositoryTest {
                 .countrySearchType(SearchType.IS)
                 .build();
 
-        Page<Customer> customerPage = customerRepository.findAll(CustomerRepository.getSpecification(customerSearch), pageable);
+        CustomerServiceDefault customerServiceDefault = new CustomerServiceDefault(customerRepository);
+        Page<Customer> customerPage = customerRepository.findAll(customerServiceDefault.getSpecification(customerSearch), pageable);
 
         assertThat(customerPage.getNumberOfElements()).isEqualTo(1);
         assertThat(customerPage.getContent().get(0).getCompanyName()).isEqualTo("customer2");

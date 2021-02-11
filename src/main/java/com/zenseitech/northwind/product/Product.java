@@ -1,6 +1,7 @@
 package com.zenseitech.northwind.product;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.zenseitech.northwind.category.Category;
 import com.zenseitech.northwind.supplier.Supplier;
 import lombok.*;
 
@@ -26,19 +27,30 @@ public class Product {
 
     @Column(nullable = false, unique = true)
     private String productName;
-//    private int supplierId = -1;
-    private int categoryId = -1;
     private String quantityPerUnit;
     private BigDecimal unitPrice;
-    private int unitsInStock = -1;
-    private int unitsOnOrder = -1;
-    private int reorderLevel = -1;
-    private int discontinued = -1;
+    private int unitsInStock;
+    private int unitsOnOrder;
+    private int reorderLevel;
+    private int discontinued;
 
     @ManyToOne
     @JoinColumn(name="supplierId", nullable = false)
-//    @JsonBackReference
+    @JsonBackReference
     private Supplier supplier;
+
+    @ManyToOne
+    @JoinColumn(name="categoryId", nullable = false)
+    @JsonBackReference
+    private Category category;
+
+    public String getSupplierCompanyName() {
+        return supplier.getCompanyName();
+    }
+
+    public String getCategoryName() {
+        return category.getCategoryName();
+    }
 
     /**
      * w2ui unique required value

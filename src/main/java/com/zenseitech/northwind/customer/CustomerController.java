@@ -37,7 +37,7 @@ public class CustomerController {
             customerPage = customerService.search(pageable);
         } else {
             CustomerSearch customerSearch = CustomerSearch.get(searchForm);
-            customerPage = customerService.search(CustomerRepository.getSpecification(customerSearch), pageable);
+            customerPage = customerService.search(customerSearch, pageable);
         }
 
         recordDomain.setTotal(customerPage.getTotalElements());

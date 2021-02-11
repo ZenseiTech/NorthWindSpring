@@ -57,8 +57,7 @@ public class CustomerServiceDefaultTest {
                 .countryField("country")
                 .countrySearchType(SearchType.IS)
                 .build();
-
-        Page<Customer> customerPage = customerService.search(CustomerRepository.getSpecification(customerSearch), pageable);
+        Page<Customer> customerPage = customerService.search(customerSearch, pageable);
 
         assertThat(customerPage.getNumberOfElements()).isEqualTo(3);
         assertThat(customerPage.getTotalElements()).isEqualTo(13);
@@ -88,7 +87,7 @@ public class CustomerServiceDefaultTest {
                 .countrySearchType(SearchType.IS)
                 .citySearchType(SearchType.IS)
                 .build();
-        Page<Customer> customerPage = customerService.search(CustomerRepository.getSpecification(customerSearch), pageable);
+        Page<Customer> customerPage = customerService.search(customerSearch, pageable);
 
         assertThat(customerPage.getNumberOfElements()).isEqualTo(1);
         assertThat(customerPage.getTotalElements()).isEqualTo(1);

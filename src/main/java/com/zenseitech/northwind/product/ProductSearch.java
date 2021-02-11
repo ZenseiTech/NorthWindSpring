@@ -12,11 +12,12 @@ import java.util.List;
 @Setter
 @Builder
 @AllArgsConstructor
+@ToString
 public class ProductSearch {
 
     private SearchType idSearchType;
     private SearchType productNameSearchType;
-    private SearchType supplierIdSearchType;
+    private SearchType supplierCompanyNameSearchType;
     private SearchType categoryIdSearchType;
     private SearchType quantityPerUnitSearchType;
     private SearchType unitPriceSearchType;
@@ -27,7 +28,7 @@ public class ProductSearch {
 
     private String idField;
     private String productNameField;
-    private String supplierIdField;
+    private String supplierCompanyNameField;
     private String categoryIdField;
     private String quantityPerUnitField;
     private String unitPriceField;
@@ -38,7 +39,7 @@ public class ProductSearch {
 
     private List<Integer> idValue = new ArrayList<>();
     private String productNameValue;
-    private List<Integer> supplierIdValue = new ArrayList<>();
+    private String supplierCompanyNameValue;
     private List<Integer> categoryIdValue = new ArrayList<>();
     private String quantityPerUnitValue;
     private List<Integer> unitPriceValue = new ArrayList<>();
@@ -48,6 +49,10 @@ public class ProductSearch {
     private List<Integer> discontinuedValue = new ArrayList<>();
 
     public ProductSearch() {
+    }
+
+    public String getSupplierCompanyNameField() {
+        return "supplier";
     }
 
     public static ProductSearch get(SearchForm searchForm) {
@@ -68,14 +73,10 @@ public class ProductSearch {
                 productSearch.setProductNameField(search.getField());
                 productSearch.setProductNameSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
-            } else if (search.getField().equalsIgnoreCase("supplier")) {
-                if (search.getValue() instanceof List) {
-                    productSearch.supplierIdValue = (List) search.getValue();
-                } else {
-                    productSearch.supplierIdValue.add((Integer) search.getValue());
-                }
-                productSearch.setSupplierIdField(search.getField());
-                productSearch.setSupplierIdSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
+            } else if (search.getField().equalsIgnoreCase("supplierCompanyName")) {
+                productSearch.setSupplierCompanyNameValue((String) search.getValue());
+                productSearch.setSupplierCompanyNameField(search.getField());
+                productSearch.setSupplierCompanyNameSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if (search.getField().equalsIgnoreCase("categoryId")) {
                 if (search.getValue() instanceof List) {
@@ -135,7 +136,6 @@ public class ProductSearch {
                 }
                 productSearch.setDiscontinuedField(search.getField());
                 productSearch.setDiscontinuedSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
-
             }
         }
         return productSearch;
