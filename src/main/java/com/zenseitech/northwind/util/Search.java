@@ -50,11 +50,11 @@ public class Search {
             throw new RuntimeException("SearchType cannot be null for field: [" + field + "]");
         }
 
-        final Integer expression = (Integer) expressions.get(0);
+        final Integer expression = expressions.get(0);
 
         switch(searchType) {
             case BETWEEN:
-                final Integer expression2 = (Integer) expressions.get(1);
+                final Integer expression2 = expressions.get(1);
                 return (root, query, builder) -> builder.between(root.get(field), expression, expression2);
             case LESS_THAN:
                 return (root, query, builder) -> builder.lessThan(root.get(field), expression);
@@ -95,10 +95,10 @@ public class Search {
     }
 
     private static String startWith(String expression) {
-        return MessageFormat.format("%{0}", expression);
+        return MessageFormat.format("{0}%", expression);
     }
 
     private static String endWith(String expression) {
-        return MessageFormat.format("{0}%", expression);
+        return MessageFormat.format("%{0}", expression);
     }
 }

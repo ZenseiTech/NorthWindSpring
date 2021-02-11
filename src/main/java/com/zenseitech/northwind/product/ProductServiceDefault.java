@@ -1,5 +1,7 @@
 package com.zenseitech.northwind.product;
 
+import com.zenseitech.northwind.category.Category;
+import com.zenseitech.northwind.category.CategoryRepository;
 import com.zenseitech.northwind.supplier.Supplier;
 import com.zenseitech.northwind.supplier.SupplierRepository;
 import com.zenseitech.northwind.util.Search;
@@ -17,12 +19,15 @@ public class ProductServiceDefault implements ProductService {
 
     private final ProductRepository productRepository;
     private final SupplierRepository supplierRepository;
+    private final CategoryRepository categoryRepository;
 
     @Autowired
     public ProductServiceDefault(ProductRepository productRepository,
-                                 SupplierRepository supplierRepository) {
+                                 SupplierRepository supplierRepository,
+                                 CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
         this.supplierRepository = supplierRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -44,7 +49,7 @@ public class ProductServiceDefault implements ProductService {
 
                 .and(Search.getIntegerSpecification(getSupplierId(productSearch.getSupplierCompanyNameValue()), productSearch.getSupplierCompanyNameField(), productSearch.getSupplierCompanyNameSearchType()))
 
-                .and(Search.getIntegerSpecification(productSearch.getCategoryIdValue(), productSearch.getCategoryIdField(), productSearch.getCategoryIdSearchType()))
+                .and(Search.getIntegerSpecification(getCategoryId(productSearch.getCategoryNameValue()), productSearch.getCategoryNameField(), productSearch.getCategoryNameSearchType()))
 
                 .and(Search.getStringSpecification(productSearch.getQuantityPerUnitValue(), productSearch.getQuantityPerUnitField(), productSearch.getQuantityPerUnitSearchType()))
 
@@ -73,5 +78,18 @@ public class ProductServiceDefault implements ProductService {
 
     private Supplier findSupplierByCompanyName(String supplierCompanyName) {
         return supplierRepository.findByCompanyName(supplierCompanyName);
+    }
+
+    private List<Integer> getCategoryId(String categoryName) {
+        List<Integer> categoryIds = new ArrayList<>();
+        if(categoryName != null) {
+            Category category = findCategoryName(categoryName);
+            categoryIds.add(category.getId());
+        }
+        return categoryIds;
+    }
+
+    private Category findCategoryName(String categoryName) {
+        return categoryRepository.findByCategoryName(categoryName);
     }
 }

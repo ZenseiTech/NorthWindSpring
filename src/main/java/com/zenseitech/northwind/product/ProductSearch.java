@@ -18,7 +18,7 @@ public class ProductSearch {
     private SearchType idSearchType;
     private SearchType productNameSearchType;
     private SearchType supplierCompanyNameSearchType;
-    private SearchType categoryIdSearchType;
+    private SearchType categoryNameSearchType;
     private SearchType quantityPerUnitSearchType;
     private SearchType unitPriceSearchType;
     private SearchType unitsInStockSearchType;
@@ -29,7 +29,7 @@ public class ProductSearch {
     private String idField;
     private String productNameField;
     private String supplierCompanyNameField;
-    private String categoryIdField;
+    private String categoryNameField;
     private String quantityPerUnitField;
     private String unitPriceField;
     private String unitsInStockField;
@@ -40,7 +40,7 @@ public class ProductSearch {
     private List<Integer> idValue = new ArrayList<>();
     private String productNameValue;
     private String supplierCompanyNameValue;
-    private List<Integer> categoryIdValue = new ArrayList<>();
+    private String categoryNameValue;
     private String quantityPerUnitValue;
     private List<Integer> unitPriceValue = new ArrayList<>();
     private List<Integer> unitsInStockValue = new ArrayList<>();
@@ -49,10 +49,6 @@ public class ProductSearch {
     private List<Integer> discontinuedValue = new ArrayList<>();
 
     public ProductSearch() {
-    }
-
-    public String getSupplierCompanyNameField() {
-        return "supplier";
     }
 
     public static ProductSearch get(SearchForm searchForm) {
@@ -75,17 +71,13 @@ public class ProductSearch {
 
             } else if (search.getField().equalsIgnoreCase("supplierCompanyName")) {
                 productSearch.setSupplierCompanyNameValue((String) search.getValue());
-                productSearch.setSupplierCompanyNameField(search.getField());
+                productSearch.setSupplierCompanyNameField("supplier");
                 productSearch.setSupplierCompanyNameSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
-            } else if (search.getField().equalsIgnoreCase("categoryId")) {
-                if (search.getValue() instanceof List) {
-                    productSearch.categoryIdValue = (List) search.getValue();
-                } else {
-                    productSearch.categoryIdValue.add((Integer) search.getValue());
-                }
-                productSearch.setCategoryIdField(search.getField());
-                productSearch.setCategoryIdSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
+            } else if (search.getField().equalsIgnoreCase("categoryName")) {
+                productSearch.setCategoryNameValue((String) search.getValue());
+                productSearch.setCategoryNameField("category");
+                productSearch.setCategoryNameSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if (search.getField().equalsIgnoreCase("quantityPerUnit")) {
                 productSearch.setQuantityPerUnitValue((String) search.getValue());
