@@ -36,16 +36,16 @@ public class ProductSearch {
     private String reorderLevelField;
     private String discontinuedField;
 
-    private List<Object> idValue = new ArrayList<>();
+    private List<Integer> idValue = new ArrayList<>();
     private String productNameValue;
-    private List<Object> supplierIdValue = new ArrayList<>();
-    private List<Object> categoryIdValue = new ArrayList<>();
+    private List<Integer> supplierIdValue = new ArrayList<>();
+    private List<Integer> categoryIdValue = new ArrayList<>();
     private String quantityPerUnitValue;
-    private List<Object> unitPriceValue = new ArrayList<>();
-    private List<Object> unitsInStockValue = new ArrayList<>();
-    private List<Object> unitsOnOrderValue = new ArrayList<>();
-    private List<Object> reorderLevelValue = new ArrayList<>();
-    private List<Object> discontinuedValue = new ArrayList<>();
+    private List<Integer> unitPriceValue = new ArrayList<>();
+    private List<Integer> unitsInStockValue = new ArrayList<>();
+    private List<Integer> unitsOnOrderValue = new ArrayList<>();
+    private List<Integer> reorderLevelValue = new ArrayList<>();
+    private List<Integer> discontinuedValue = new ArrayList<>();
 
     public ProductSearch() {
     }
@@ -58,7 +58,7 @@ public class ProductSearch {
                 if (search.getValue() instanceof List) {
                     productSearch.idValue = (List) search.getValue();
                 } else {
-                    productSearch.idValue.add(search.getValue());
+                    productSearch.idValue.add((Integer) search.getValue());
                 }
                 productSearch.setIdField(search.getField());
                 productSearch.setIdSearchType(SearchType.valueOf(search.getOperator().toUpperCase().toUpperCase()));
@@ -72,7 +72,7 @@ public class ProductSearch {
                 if (search.getValue() instanceof List) {
                     productSearch.supplierIdValue = (List) search.getValue();
                 } else {
-                    productSearch.supplierIdValue.add(search.getValue());
+                    productSearch.supplierIdValue.add((Integer) search.getValue());
                 }
                 productSearch.setSupplierIdField(search.getField());
                 productSearch.setSupplierIdSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
@@ -81,7 +81,7 @@ public class ProductSearch {
                 if (search.getValue() instanceof List) {
                     productSearch.categoryIdValue = (List) search.getValue();
                 } else {
-                    productSearch.categoryIdValue.add(search.getValue());
+                    productSearch.categoryIdValue.add((Integer) search.getValue());
                 }
                 productSearch.setCategoryIdField(search.getField());
                 productSearch.setCategoryIdSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
@@ -95,7 +95,7 @@ public class ProductSearch {
                 if (search.getValue() instanceof List) {
                     productSearch.unitPriceValue = (List) search.getValue();
                 } else {
-                    productSearch.unitPriceValue.add(search.getValue());
+                    productSearch.unitPriceValue.add((Integer) search.getValue());
                 }
                 productSearch.setUnitPriceField(search.getField());
                 productSearch.setUnitPriceSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
@@ -104,7 +104,7 @@ public class ProductSearch {
                 if (search.getValue() instanceof List) {
                     productSearch.unitsInStockValue = (List) search.getValue();
                 } else {
-                    productSearch.unitsInStockValue.add(search.getValue());
+                    productSearch.unitsInStockValue.add((Integer) search.getValue());
                 }
                 productSearch.setUnitsInStockField(search.getField());
                 productSearch.setUnitsInStockSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
@@ -113,7 +113,7 @@ public class ProductSearch {
                 if (search.getValue() instanceof List) {
                     productSearch.unitsOnOrderValue = (List) search.getValue();
                 } else {
-                    productSearch.unitsOnOrderValue.add(search.getValue());
+                    productSearch.unitsOnOrderValue.add((Integer) search.getValue());
                 }
                 productSearch.setUnitsOnOrderField(search.getField());
                 productSearch.setUnitsOnOrderSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
@@ -122,7 +122,7 @@ public class ProductSearch {
                 if (search.getValue() instanceof List) {
                     productSearch.reorderLevelValue = (List) search.getValue();
                 } else {
-                    productSearch.reorderLevelValue.add(search.getValue());
+                    productSearch.reorderLevelValue.add((Integer) search.getValue());
                 }
                 productSearch.setReorderLevelField(search.getField());
                 productSearch.setReorderLevelSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
@@ -131,7 +131,7 @@ public class ProductSearch {
                 if (search.getValue() instanceof List) {
                     productSearch.discontinuedValue = (List) search.getValue();
                 } else {
-                    productSearch.discontinuedValue.add(search.getValue());
+                    productSearch.discontinuedValue.add((Integer) search.getValue());
                 }
                 productSearch.setDiscontinuedField(search.getField());
                 productSearch.setDiscontinuedSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));

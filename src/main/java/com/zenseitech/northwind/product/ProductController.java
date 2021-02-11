@@ -1,7 +1,10 @@
 package com.zenseitech.northwind.product;
 
+import com.zenseitech.northwind.customer.CustomerController;
 import com.zenseitech.northwind.util.RecordDomain;
 import com.zenseitech.northwind.util.SearchForm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +19,9 @@ import java.util.List;
 @RestController
 public class ProductController {
 
+    // https://www.baeldung.com/spring-boot-logging
+    Logger logger = LoggerFactory.getLogger(ProductController.class);
+
     private ProductService productService;
 
     @Autowired
@@ -25,7 +31,7 @@ public class ProductController {
 
     @PostMapping("/products")
     public RecordDomain searchProducts(@RequestBody SearchForm searchForm) {
-        System.out.println("====> " + searchForm.toString());
+        logger.debug("====> " + searchForm.toString());
         RecordDomain recordDomain = new RecordDomain();
         recordDomain.setStatus("success");
 

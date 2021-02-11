@@ -12,37 +12,26 @@ public interface ProductRepository extends JpaRepository<Product, Integer>, JpaS
     Page<Product> findAll(Pageable pageable);
 
     static Specification<Product> getSpecification(ProductSearch productSearch) {
-//        Product product = productSearch.getProduct();
         Specification<Object> specification = Specification
-                .where(productSearch.getIdField() == null ? null :
-                        Search.getIntegerSpecification(productSearch.getIdValue(), productSearch.getIdField(), productSearch.getIdSearchType()))
+                .where(Search.getIntegerSpecification(productSearch.getIdValue(), productSearch.getIdField(), productSearch.getIdSearchType()))
 
-                .and(productSearch.getProductNameField() == null ? null :
-                        Search.getStringSpecification(productSearch.getProductNameValue(), productSearch.getProductNameField(), productSearch.getProductNameSearchType()))
+                .and(Search.getStringSpecification(productSearch.getProductNameValue(), productSearch.getProductNameField(), productSearch.getProductNameSearchType()))
 
-                .and(productSearch.getSupplierIdField() == null ? null :
-                        Search.getIntegerSpecification(productSearch.getSupplierIdValue(), productSearch.getSupplierIdField(), productSearch.getSupplierIdSearchType()))
+                .and(Search.getIntegerSpecification(productSearch.getSupplierIdValue(), productSearch.getSupplierIdField(), productSearch.getSupplierIdSearchType()))
 
-                .and(productSearch.getCategoryIdField() == null ? null :
-                        Search.getIntegerSpecification(productSearch.getCategoryIdValue(), productSearch.getCategoryIdField(), productSearch.getCategoryIdSearchType()))
+                .and(Search.getIntegerSpecification(productSearch.getCategoryIdValue(), productSearch.getCategoryIdField(), productSearch.getCategoryIdSearchType()))
 
-                .and(productSearch.getQuantityPerUnitField() == null ? null :
-                        Search.getStringSpecification(productSearch.getQuantityPerUnitValue(), productSearch.getQuantityPerUnitField(), productSearch.getQuantityPerUnitSearchType()))
+                .and(Search.getStringSpecification(productSearch.getQuantityPerUnitValue(), productSearch.getQuantityPerUnitField(), productSearch.getQuantityPerUnitSearchType()))
 
-                .and(productSearch.getUnitPriceField() == null ? null :
-                        Search.getIntegerSpecification(productSearch.getUnitPriceValue(), productSearch.getUnitPriceField(), productSearch.getUnitPriceSearchType()))
+                .and(Search.getIntegerSpecification(productSearch.getUnitPriceValue(), productSearch.getUnitPriceField(), productSearch.getUnitPriceSearchType()))
 
-                .and(productSearch.getUnitsInStockField() == null ? null :
-                        Search.getIntegerSpecification(productSearch.getUnitsInStockValue(), productSearch.getUnitsInStockField(), productSearch.getUnitsInStockSearchType()))
+                .and(Search.getIntegerSpecification(productSearch.getUnitsInStockValue(), productSearch.getUnitsInStockField(), productSearch.getUnitsInStockSearchType()))
 
-                .and(productSearch.getUnitsOnOrderField() == null ? null :
-                        Search.getIntegerSpecification(productSearch.getUnitsOnOrderValue(), productSearch.getUnitsOnOrderField(), productSearch.getUnitsOnOrderSearchType()))
+                .and(Search.getIntegerSpecification(productSearch.getUnitsOnOrderValue(), productSearch.getUnitsOnOrderField(), productSearch.getUnitsOnOrderSearchType()))
 
-                .and(productSearch.getReorderLevelField() == null ? null :
-                        Search.getIntegerSpecification(productSearch.getReorderLevelValue(), productSearch.getReorderLevelField(), productSearch.getReorderLevelSearchType()))
+                .and(Search.getIntegerSpecification(productSearch.getReorderLevelValue(), productSearch.getReorderLevelField(), productSearch.getReorderLevelSearchType()))
 
-                .and(productSearch.getDiscontinuedField() == null ? null :
-                        Search.getIntegerSpecification(productSearch.getDiscontinuedValue(), productSearch.getDiscontinuedField(), productSearch.getDiscontinuedSearchType()))
+                .and(Search.getIntegerSpecification(productSearch.getDiscontinuedValue(), productSearch.getDiscontinuedField(), productSearch.getDiscontinuedSearchType()))
                 ;
 
         return Specification.class.cast(specification);

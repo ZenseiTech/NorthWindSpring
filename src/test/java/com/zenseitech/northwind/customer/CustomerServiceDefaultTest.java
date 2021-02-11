@@ -55,6 +55,7 @@ public class CustomerServiceDefaultTest {
         CustomerSearch customerSearch = CustomerSearch.builder()
                 .countryValue("USA")
                 .countryField("country")
+                .countrySearchType(SearchType.IS)
                 .build();
 
         Page<Customer> customerPage = customerService.search(CustomerRepository.getSpecification(customerSearch), pageable);
@@ -84,6 +85,8 @@ public class CustomerServiceDefaultTest {
                 .countryField("country")
                 .cityField("city")
                 .contactTitleField("contactTitle")
+                .countrySearchType(SearchType.IS)
+                .citySearchType(SearchType.IS)
                 .build();
         Page<Customer> customerPage = customerService.search(CustomerRepository.getSpecification(customerSearch), pageable);
 

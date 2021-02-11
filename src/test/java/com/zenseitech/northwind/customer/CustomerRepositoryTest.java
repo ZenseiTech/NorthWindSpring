@@ -1,5 +1,6 @@
 package com.zenseitech.northwind.customer;
 
+import com.zenseitech.northwind.util.SearchType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -80,6 +81,7 @@ public class CustomerRepositoryTest {
         CustomerSearch customerSearch = CustomerSearch.builder()
                 .countryValue("Mexico")
                 .countryField("country")
+                .countrySearchType(SearchType.IS)
                 .build();
 
         Page<Customer> customerPage = customerRepository.findAll(CustomerRepository.getSpecification(customerSearch), pageable);

@@ -2,6 +2,8 @@ package com.zenseitech.northwind.customer;
 
 import com.zenseitech.northwind.util.RecordDomain;
 import com.zenseitech.northwind.util.SearchForm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +16,8 @@ import java.util.List;
 @RestController
 public class CustomerController {
 
+    Logger logger = LoggerFactory.getLogger(CustomerController.class);
+
     private CustomerService customerService;
 
     @Autowired
@@ -23,7 +27,7 @@ public class CustomerController {
 
     @PostMapping("/customers")
     public RecordDomain searchCustomers(@RequestBody SearchForm searchForm) {
-        System.out.println("====> " + searchForm.toString());
+        logger.debug("====> " + searchForm.toString());
         Pageable pageable = searchForm.getPageable();
         Page<Customer> customerPage;
         RecordDomain recordDomain = new RecordDomain();

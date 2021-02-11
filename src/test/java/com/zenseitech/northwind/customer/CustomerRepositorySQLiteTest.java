@@ -92,6 +92,7 @@ public class CustomerRepositorySQLiteTest {
         CustomerSearch customerSearch = CustomerSearch.builder()
                 .countryValue("USA")
                 .countryField("country")
+                .countrySearchType(SearchType.IS)
                 .build();
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
@@ -136,6 +137,8 @@ public class CustomerRepositorySQLiteTest {
                 .countryValue("France")
                 .regionField("region")
                 .countryField("country")
+                .regionSearchType(SearchType.IS)
+                .countrySearchType(SearchType.IS)
                 .build();
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
@@ -157,6 +160,7 @@ public class CustomerRepositorySQLiteTest {
         CustomerSearch customerSearch = CustomerSearch.builder()
                 .cityValue("Portland")
                 .cityField("city")
+                .citySearchType(SearchType.IS)
                 .build();
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("CompanyName").ascending());
