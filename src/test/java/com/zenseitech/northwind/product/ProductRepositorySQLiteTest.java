@@ -47,7 +47,7 @@ public class ProductRepositorySQLiteTest {
 
         SearchForm searchForm = new SearchForm();
         Search search = new Search();
-        search.setField("supplierCompanyName");
+        search.setField("supplierName");
         search.setOperator("is");
         search.setType("text");
         search.setValue("Pavlova, Ltd.");
@@ -116,7 +116,7 @@ public class ProductRepositorySQLiteTest {
         searchList.add(searchCategory);
 
         Search searchSupplier = new Search();
-        searchSupplier.setField("supplierCompanyName");
+        searchSupplier.setField("supplierName");
         searchSupplier.setOperator("is");
         searchSupplier.setType("text");
         searchSupplier.setValue("Norske Meierier");

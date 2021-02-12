@@ -9,9 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class ProductController {
@@ -27,8 +29,15 @@ public class ProductController {
     }
 
     @PostMapping("/products")
-    public RecordDomain searchProducts(@RequestBody SearchForm searchForm) {
+    public RecordDomain searchProducts(@RequestBody SearchForm searchForm,
+                                       @RequestHeader Map<String, String> headers) {
         logger.debug("====> " + searchForm.toString());
+
+        // https://www.baeldung.com/spring-rest-http-headershtt
+        headers.forEach((key, value) -> {
+            logger.info(String.format("Header '%s' = %s", key, value));
+        });
+
         RecordDomain recordDomain = new RecordDomain();
         recordDomain.setStatus("success");
 

@@ -47,7 +47,7 @@ public class ProductServiceDefault implements ProductService {
 
                 .and(Search.getStringSpecification(productSearch.getProductNameValue(), productSearch.getProductNameField(), productSearch.getProductNameSearchType()))
 
-                .and(Search.getIntegerSpecification(getSupplierId(productSearch.getSupplierCompanyNameValue()), productSearch.getSupplierCompanyNameField(), productSearch.getSupplierCompanyNameSearchType()))
+                .and(Search.getIntegerSpecification(getSupplierId(productSearch.getSupplierNameValue()), productSearch.getSupplierNameField(), productSearch.getSupplierNameSearchType()))
 
                 .and(Search.getIntegerSpecification(getCategoryId(productSearch.getCategoryNameValue()), productSearch.getCategoryNameField(), productSearch.getCategoryNameSearchType()))
 

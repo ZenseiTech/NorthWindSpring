@@ -17,7 +17,7 @@ public class ProductSearch {
 
     private SearchType idSearchType;
     private SearchType productNameSearchType;
-    private SearchType supplierCompanyNameSearchType;
+    private SearchType supplierNameSearchType;
     private SearchType categoryNameSearchType;
     private SearchType quantityPerUnitSearchType;
     private SearchType unitPriceSearchType;
@@ -28,7 +28,7 @@ public class ProductSearch {
 
     private String idField;
     private String productNameField;
-    private String supplierCompanyNameField;
+    private String supplierNameField;
     private String categoryNameField;
     private String quantityPerUnitField;
     private String unitPriceField;
@@ -39,7 +39,7 @@ public class ProductSearch {
 
     private List<Integer> idValue = new ArrayList<>();
     private String productNameValue;
-    private String supplierCompanyNameValue;
+    private String supplierNameValue;
     private String categoryNameValue;
     private String quantityPerUnitValue;
     private List<Integer> unitPriceValue = new ArrayList<>();
@@ -69,10 +69,10 @@ public class ProductSearch {
                 productSearch.setProductNameField(search.getField());
                 productSearch.setProductNameSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
-            } else if (search.getField().equalsIgnoreCase("supplierCompanyName")) {
-                productSearch.setSupplierCompanyNameValue((String) search.getValue());
-                productSearch.setSupplierCompanyNameField("supplier");
-                productSearch.setSupplierCompanyNameSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
+            } else if (search.getField().equalsIgnoreCase("supplierName")) {
+                productSearch.setSupplierNameValue((String) search.getValue());
+                productSearch.setSupplierNameField("supplier");
+                productSearch.setSupplierNameSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if (search.getField().equalsIgnoreCase("categoryName")) {
                 productSearch.setCategoryNameValue((String) search.getValue());

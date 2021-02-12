@@ -8,9 +8,9 @@
   ],
   "searchLogic": "AND",
   "search": [
-    { "field": "supplier", "type": "text", "value": "Pavlova, Ltd.", "operator": "is" },
-    { "field": "productName", "type": "text", "value": "Queso", "operator": "contains" },
-    { "field": "quantityPerUnit", "type": "text", "value": "10", "operator": "contains" }
+    { "field": "supplierName", "type": "text", "value": "Pavlova, Ltd.", "operator": "is" },
+    { "field": "productName", "type": "text", "value": "spread", "operator": "contains" },
+    { "field": "quantityPerUnit", "type": "text", "value": "25", "operator": "contains" }
   ],
   "sort": [
     {
