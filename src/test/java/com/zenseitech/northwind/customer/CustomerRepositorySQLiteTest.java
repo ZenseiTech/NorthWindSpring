@@ -71,11 +71,13 @@ public class CustomerRepositorySQLiteTest {
                 .matchingAll()
                 .withMatcher("region", contains().ignoreCase())
                 .withMatcher("country", contains().ignoreCase());
+
         Customer customer = Customer
                 .builder()
                 .region(region)
                 .country(country)
                 .build();
+
         Page<Customer> customerPage = customerRepository.findAll(Example.of(customer, matcher), pageable);
 
         assertThat(customerPage.getNumberOfElements()).isEqualTo(3);

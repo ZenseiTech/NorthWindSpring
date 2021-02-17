@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface CustomerRepository extends JpaRepository<Customer, String>, JpaSpecificationExecutor<Customer> {
     Page<Customer> findAll(Pageable pageable);
+    Customer findByCompanyName(String companyName);
 }

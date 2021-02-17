@@ -5,9 +5,14 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.math.BigDecimal;
 import java.text.MessageFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Getter
 @Setter
@@ -59,6 +64,56 @@ public class Search {
             case LESS_THAN:
                 return (root, query, builder) -> builder.lessThan(root.get(field), expression);
             case MORE_THAN:
+                return (root, query, builder) -> builder.greaterThan(root.get(field), expression);
+            default:
+                return (root, query, builder) -> builder.equal(root.get(field), expression);
+        }
+    }
+
+    public static Specification<Object> getBigDecimalSpecification(List<BigDecimal> expressions, String field, SearchType searchType) {
+
+        if(field == null) {
+            return null;
+        }
+
+        if(searchType == null) {
+            throw new RuntimeException("SearchType cannot be null for field: [" + field + "]");
+        }
+
+        final BigDecimal expression = expressions.get(0);
+
+        switch(searchType) {
+            case BETWEEN:
+                final BigDecimal expression2 = expressions.get(1);
+                return (root, query, builder) -> builder.between(root.get(field), expression, expression2);
+            case LESS_THAN:
+                return (root, query, builder) -> builder.lessThan(root.get(field), expression);
+            case MORE_THAN:
+                return (root, query, builder) -> builder.greaterThan(root.get(field), expression);
+            default:
+                return (root, query, builder) -> builder.equal(root.get(field), expression);
+        }
+    }
+
+    public static Specification<Object> getDateStringSpecification(List<String> expressions, String field, SearchType searchType) {
+
+        if(field == null) {
+            return null;
+        }
+
+        final String expression = expressions.get(0);
+
+        if(searchType == null) {
+            throw new RuntimeException("SearchType cannot be null for field: [" + field + "]");
+        }
+
+        switch(searchType) {
+            case BETWEEN:
+                final String expression2 = expressions.get(1);
+                return (root, query, builder) -> builder.between(root.get(field), expression, expression2);
+            case BEFORE:
+                return (root, query, builder) -> builder.lessThan(root.get(field), expression);
+            case AFTER:
                 return (root, query, builder) -> builder.greaterThan(root.get(field), expression);
             default:
                 return (root, query, builder) -> builder.equal(root.get(field), expression);

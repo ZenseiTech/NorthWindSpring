@@ -1,4 +1,4 @@
-package com.zenseitech.northwind.ProductDetail;
+package com.zenseitech.northwind.productDetail;
 
 import com.zenseitech.northwind.util.RecordDomain;
 import com.zenseitech.northwind.util.SearchForm;

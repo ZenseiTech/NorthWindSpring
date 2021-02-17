@@ -1,4 +1,4 @@
-package com.zenseitech.northwind.ProductDetail;
+package com.zenseitech.northwind.productDetail;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,7 +1,6 @@
-package com.zenseitech.northwind.ProductDetail;
+package com.zenseitech.northwind.productDetail;
 
 import com.zenseitech.northwind.configuration.DataSourceConfiguration;
-import com.zenseitech.northwind.product.ProductSearch;
 import com.zenseitech.northwind.util.Search;
 import com.zenseitech.northwind.util.SearchForm;
 import org.junit.Test;
