@@ -145,6 +145,33 @@ public class OrderRepositorySQliteTest {
         Page<Order> orderPage = orderRepository.findAll(orderServiceDefault.getSpecification(orderSearch), pageable);
 
         assertThat(orderPage.getNumberOfElements()).isEqualTo(120);
-        assertThat(orderPage.getTotalElements()).isEqualTo(165);
+        assertThat(orderPage.getTotalElements()).isEqualTo(169);
+    }
+
+
+    @Test
+    public void findBySpecification_Shipper() {
+
+        int offset = 0;
+        int size = 300;
+
+        SearchForm searchForm = new SearchForm();
+        List<Search> searchList = new ArrayList<>();
+        Search search = new Search();
+        search.setValue("Federal Shipping");
+        search.setField("shipCompanyName");
+        search.setOperator("IS");
+        search.setType("text");
+
+        searchList.add(search);
+        searchForm.setSearch(searchList);
+
+        OrderSearch orderSearch = OrderSearch.get(searchForm);
+
+        Pageable pageable = PageRequest.of(offset, size, Sort.by("RequiredDate").ascending());
+        Page<Order> orderPage = orderRepository.findAll(orderServiceDefault.getSpecification(orderSearch), pageable);
+
+        assertThat(orderPage.getNumberOfElements()).isEqualTo(300);
+        assertThat(orderPage.getTotalElements()).isEqualTo(5654);
     }
 }
