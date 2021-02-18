@@ -6,8 +6,6 @@ import com.zenseitech.northwind.employee.EmployeeRepository;
 import com.zenseitech.northwind.shipper.ShipperRepository;
 import com.zenseitech.northwind.util.Search;
 import com.zenseitech.northwind.util.SearchForm;
-import com.zenseitech.northwind.util.SearchFormTest;
-import com.zenseitech.northwind.util.SearchType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

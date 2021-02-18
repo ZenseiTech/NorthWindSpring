@@ -1,0 +1,12 @@
+
+
+http post localhost:8080/customers < customer_search.json
+
+http post localhost:8080/customers < find_all.json
+
+http post localhost:8080/products < product_search.json
+
+// Get OrderDetail by orderId ...
+http get localhost:8080/orderDetail/10250
+
+
