@@ -1,4 +1,4 @@
-{
+request = {
   "cmd": "cmd",
   "limit": 10,
   "offset": 0,

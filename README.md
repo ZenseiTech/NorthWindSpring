@@ -7,3 +7,5 @@ I wouldn't recommend it for mobile though.
 As a database is using a sample of the famous Microsoft NorthWind Traders database that was ported to SQLite
 
 Technologies used are: Spring, SpringBoot, SpringData JPA
+
+java -Dspring.profiles.active=sqlite -jar target/Northwind-0.0.1-SNAPSHOT.jar

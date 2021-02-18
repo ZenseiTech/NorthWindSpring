@@ -1,4 +1,4 @@
-{
+request = {
   "cmd":"get",
   "selected":[],
   "limit":20,
