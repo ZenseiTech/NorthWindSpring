@@ -52,6 +52,10 @@ public class OrderSearch {
     private String customerCompanyNameField;
     private String customerCompanyNameValue;
 
+    private SearchType customerIdSearchType;
+    private String customerIdField;
+    private String customerIdValue;
+
     private SearchType shipAddressSearchType;
     private String shipAddressField;
     private String shipAddressValue;
@@ -130,6 +134,11 @@ public class OrderSearch {
                 orderSearch.setShipCompanyNameValue((String) search.getValue());
                 orderSearch.setShipCompanyNameField("shipper");
                 orderSearch.setShipCompanyNameSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
+
+            } else if (search.getField().equalsIgnoreCase("customerId")) {
+                orderSearch.setCustomerIdValue((String) search.getValue());
+                orderSearch.setCustomerIdField(search.getField());
+                orderSearch.setCustomerIdSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if (search.getField().equalsIgnoreCase("customerCompanyName")) {
                 orderSearch.setCustomerCompanyNameValue((String) search.getValue());

@@ -46,7 +46,7 @@ public class Employee {
      * w2ui unique required value
      * @return
      */
-    public Integer getRecId() {
+    public Integer getRecid() {
         return id;
     }
 }

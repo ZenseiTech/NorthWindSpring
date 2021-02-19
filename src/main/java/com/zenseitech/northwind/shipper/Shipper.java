@@ -30,7 +30,7 @@ public class Shipper {
      * w2ui unique required value
      * @return
      */
-    public Integer getRecId() {
+    public Integer getRecid() {
         return id;
     }
 }

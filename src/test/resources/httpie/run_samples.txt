@@ -1,10 +1,14 @@
 
 
-http -f post localhost:8080/customers < customer_search.json
+http -f post localhost:8080/customers < customer_search_w2ui.request
 
-http -f post localhost:8080/customers < find_all.json
+http -f post localhost:8080/customers < find_all_w2ui.request
 
-http -f post localhost:8080/products < product_search.json
+http -f post localhost:8080/products < product_search_w2ui.request
+
+http -f post localhost:8080/orders < order_search_w2ui.request
+
+ http -f post localhost:8080/orders < order_search_by_customerId_w2ui.request
 
 // Get OrderDetail by orderId ...
 http get localhost:8080/orderDetail/10250

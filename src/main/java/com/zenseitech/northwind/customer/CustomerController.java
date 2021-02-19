@@ -37,9 +37,7 @@ public class CustomerController {
         SearchForm searchForm;
 
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            String key = paramMap.values().iterator().next().get(0);
-            searchForm = objectMapper.readValue(key, SearchForm.class);
+            searchForm = SearchForm.get(paramMap);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             recordDomain.setStatus("error");

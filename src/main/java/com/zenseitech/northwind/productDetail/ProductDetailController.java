@@ -1,5 +1,6 @@
 package com.zenseitech.northwind.productDetail;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.zenseitech.northwind.util.RecordDomain;
 import com.zenseitech.northwind.util.SearchForm;
 import org.slf4j.Logger;
@@ -7,8 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -25,10 +29,21 @@ public class ProductDetailController {
         this.productDetailService = productDetailService;
     }
 
-    @PostMapping("/productdetails")
-    public RecordDomain searchProducts(@RequestBody SearchForm searchForm) {
-        logger.debug("====> " + searchForm.toString());
+    @PostMapping(path = "/productdetails", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public RecordDomain searchProducts(@RequestParam MultiValueMap<String,String> paramMap) {
+
         RecordDomain recordDomain = new RecordDomain();
+        SearchForm searchForm;
+
+        try {
+            searchForm = SearchForm.get(paramMap);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            recordDomain.setStatus("error");
+            return recordDomain;
+        }
+
+        logger.debug("====> " + searchForm.toString());
         recordDomain.setStatus("success");
 
         Pageable pageable = searchForm.getPageable();

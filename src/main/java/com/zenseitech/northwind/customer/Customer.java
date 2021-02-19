@@ -35,7 +35,7 @@ public class Customer  {
      * w2ui unique required value
      * @return
      */
-    public String getRecId() {
+    public String getRecid() {
         return id;
     }
 }

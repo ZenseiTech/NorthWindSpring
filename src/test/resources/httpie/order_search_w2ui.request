@@ -1,0 +1,19 @@
+request = {
+  "cmd": "cmd",
+  "limit": 2,
+  "offset": 4,
+  "selected": [
+    10,
+    20
+  ],
+  "searchLogic": "AND",
+  "search": [
+    { "field": "customerCompanyName", "type": "text", "value": "Du monde entier", "operator": "is" }
+  ],
+  "sort": [
+    {
+      "field": "id",
+      "direction": "ASC"
+    }
+  ]
+}

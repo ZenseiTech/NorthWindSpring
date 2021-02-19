@@ -64,7 +64,9 @@ public class OrderServiceDefault implements OrderService {
 
                 .and(Search.getStringSpecification(getCustomerId(orderSearch.getCustomerCompanyNameValue()), orderSearch.getCustomerCompanyNameField(), orderSearch.getCustomerCompanyNameSearchType()))
 
-                .and(Search.getBigDecimalSpecification(orderSearch.getFreightValue(), orderSearch.getIdField(), orderSearch.getIdSearchType()))
+                .and(Search.getStringSpecification(orderSearch.getCustomerIdValue(), orderSearch.getCustomerIdField(), orderSearch.getCustomerIdSearchType()))
+
+                .and(Search.getBigDecimalSpecification(orderSearch.getFreightValue(), orderSearch.getFreightField(), orderSearch.getFreightSearchType()))
 
                 .and(Search.getStringSpecification(orderSearch.getShipAddressValue(), orderSearch.getShipAddressField(), orderSearch.getShipAddressSearchType()))
 

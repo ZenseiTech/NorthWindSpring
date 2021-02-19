@@ -41,7 +41,7 @@ public class OrderDetail {
      * w2ui unique required value for the Grid
      * @return
      */
-    public String getRecId() {
+    public String getRecid() {
         return id;
     }
 }

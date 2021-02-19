@@ -1,0 +1,19 @@
+request = {
+  "cmd": "cmd",
+  "limit": 2,
+  "offset": 4,
+  "selected": [
+    10,
+    20
+  ],
+  "searchLogic": "AND",
+  "search": [
+    { "field": "customerId", "type": "text", "value": "DUMON", "operator": "is" }
+  ],
+  "sort": [
+    {
+      "field": "id",
+      "direction": "ASC"
+    }
+  ]
+}

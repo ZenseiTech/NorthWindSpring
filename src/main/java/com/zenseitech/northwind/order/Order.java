@@ -70,7 +70,7 @@ public class Order {
      * w2ui unique required value
      * @return
      */
-    public BigDecimal getRecId() {
+    public BigDecimal getRecid() {
         return id;
     }
 }
