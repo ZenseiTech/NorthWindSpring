@@ -33,25 +33,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class OrderRepositorySQliteTest {
 
     @Autowired
-    private OrderRepository orderRepository;
-
-    @Autowired
-    private ShipperRepository shipperRepository;
-
-    @Autowired
-    private EmployeeRepository employeeRepository;
-
-    @Autowired
-    private CustomerRepository customerRepository;
+    private OrderViewRepository orderViewRepository;
 
     private OrderServiceDefault orderServiceDefault;
 
     @Before
     public void setup() {
-        orderServiceDefault = new OrderServiceDefault(orderRepository,
-                shipperRepository,
-                employeeRepository,
-                customerRepository);
+        orderServiceDefault = new OrderServiceDefault(orderViewRepository);
     }
 
 
@@ -75,7 +63,7 @@ public class OrderRepositorySQliteTest {
         OrderSearch orderSearch = OrderSearch.get(searchForm);
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("RequiredDate").ascending());
-        Page<Order> orderPage = orderRepository.findAll(orderServiceDefault.getSpecification(orderSearch), pageable);
+        Page<OrderView> orderPage = orderViewRepository.findAll(orderServiceDefault.getSpecification(orderSearch), pageable);
 
         assertThat(orderPage.getNumberOfElements()).isEqualTo(300);
         assertThat(orderPage.getTotalElements()).isEqualTo(1835);
@@ -112,7 +100,7 @@ public class OrderRepositorySQliteTest {
         OrderSearch orderSearch = OrderSearch.get(searchForm);
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("RequiredDate").ascending());
-        Page<Order> orderPage = orderRepository.findAll(orderServiceDefault.getSpecification(orderSearch), pageable);
+        Page<OrderView> orderPage = orderViewRepository.findAll(orderServiceDefault.getSpecification(orderSearch), pageable);
 
         assertThat(orderPage.getNumberOfElements()).isEqualTo(15);
         assertThat(orderPage.getTotalElements()).isEqualTo(15);
@@ -140,7 +128,7 @@ public class OrderRepositorySQliteTest {
         OrderSearch orderSearch = OrderSearch.get(searchForm);
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("RequiredDate").ascending());
-        Page<Order> orderPage = orderRepository.findAll(orderServiceDefault.getSpecification(orderSearch), pageable);
+        Page<OrderView> orderPage = orderViewRepository.findAll(orderServiceDefault.getSpecification(orderSearch), pageable);
 
         assertThat(orderPage.getNumberOfElements()).isEqualTo(120);
         assertThat(orderPage.getTotalElements()).isEqualTo(169);
@@ -167,7 +155,7 @@ public class OrderRepositorySQliteTest {
         OrderSearch orderSearch = OrderSearch.get(searchForm);
 
         Pageable pageable = PageRequest.of(offset, size, Sort.by("RequiredDate").ascending());
-        Page<Order> orderPage = orderRepository.findAll(orderServiceDefault.getSpecification(orderSearch), pageable);
+        Page<OrderView> orderPage = orderViewRepository.findAll(orderServiceDefault.getSpecification(orderSearch), pageable);
 
         assertThat(orderPage.getNumberOfElements()).isEqualTo(300);
         assertThat(orderPage.getTotalElements()).isEqualTo(5654);

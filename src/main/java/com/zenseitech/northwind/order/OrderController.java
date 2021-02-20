@@ -49,7 +49,7 @@ public class OrderController {
 
         logger.debug("====> " + searchForm.toString());
         Pageable pageable = searchForm.getPageable();
-        Page<Order> orderPage;
+        Page<OrderView> orderPage;
         recordDomain.setStatus("success");
 
         if(searchForm.getSearch() == null) {

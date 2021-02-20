@@ -47,6 +47,10 @@ public class Search {
             return null;
         }
 
+        if(expressions.isEmpty()) {
+            return null;
+        }
+
         if(searchType == null) {
             throw new RuntimeException("SearchType cannot be null for field: [" + field + "]");
         }
@@ -72,15 +76,19 @@ public class Search {
             return null;
         }
 
+        if(expressions.isEmpty()) {
+            return null;
+        }
+
         if(searchType == null) {
             throw new RuntimeException("SearchType cannot be null for field: [" + field + "]");
         }
 
-        final BigDecimal expression = expressions.get(0);
+        final BigDecimal expression = toBigDecimal(expressions.get(0));
 
         switch(searchType) {
             case BETWEEN:
-                final BigDecimal expression2 = expressions.get(1);
+                final BigDecimal expression2 = toBigDecimal(expressions.get(1));
                 return (root, query, builder) -> builder.between(root.get(field), expression, expression2);
             case LESS_THAN:
                 return (root, query, builder) -> builder.lessThan(root.get(field), expression);
@@ -91,9 +99,20 @@ public class Search {
         }
     }
 
+    private static BigDecimal toBigDecimal(Object value) {
+        if(value instanceof Integer || value instanceof Double) {
+            return new BigDecimal(value.toString());
+        }
+        return new BigDecimal(value.toString());
+    }
+
     public static Specification<Object> getDateStringSpecification(List<String> expressions, String field, SearchType searchType) {
 
         if(field == null) {
+            return null;
+        }
+
+        if(expressions.isEmpty()) {
             return null;
         }
 
@@ -119,6 +138,10 @@ public class Search {
     public static Specification<Object> getDateSpecification(List<Date> expressions, String field, SearchType searchType) {
 
         if(field == null) {
+            return null;
+        }
+
+        if(expressions.isEmpty()) {
             return null;
         }
 

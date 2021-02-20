@@ -94,7 +94,7 @@ public class OrderSearch {
 
             } else if (search.getField().equalsIgnoreCase("employeeFullName")) {
                 orderSearch.setEmployeeFullNameValue((String) search.getValue());
-                orderSearch.setEmployeeFullNameField("employee");
+                orderSearch.setEmployeeFullNameField(search.getField());
                 orderSearch.setEmployeeFullNameSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if (search.getField().equalsIgnoreCase("orderDate")) {
@@ -132,7 +132,7 @@ public class OrderSearch {
 
             } else if (search.getField().equalsIgnoreCase("shipCompanyName")) {
                 orderSearch.setShipCompanyNameValue((String) search.getValue());
-                orderSearch.setShipCompanyNameField("shipper");
+                orderSearch.setShipCompanyNameField(search.getField());
                 orderSearch.setShipCompanyNameSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if (search.getField().equalsIgnoreCase("customerId")) {
@@ -142,7 +142,7 @@ public class OrderSearch {
 
             } else if (search.getField().equalsIgnoreCase("customerCompanyName")) {
                 orderSearch.setCustomerCompanyNameValue((String) search.getValue());
-                orderSearch.setCustomerCompanyNameField("customerId");
+                orderSearch.setCustomerCompanyNameField(search.getField());
                 orderSearch.setCustomerCompanyNameSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if (search.getField().equalsIgnoreCase("shipAddress")) {

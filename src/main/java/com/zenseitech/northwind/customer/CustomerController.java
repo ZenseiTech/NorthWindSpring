@@ -1,7 +1,6 @@
 package com.zenseitech.northwind.customer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zenseitech.northwind.util.RecordDomain;
 import com.zenseitech.northwind.util.SearchForm;
 import org.slf4j.Logger;
@@ -12,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,10 +32,10 @@ public class CustomerController {
     public RecordDomain searchCustomers(@RequestParam MultiValueMap<String,String> paramMap) {
 
         RecordDomain recordDomain = new RecordDomain();
-        SearchForm searchForm;
+        CustomerSearchForm searchForm;
 
         try {
-            searchForm = SearchForm.get(paramMap);
+            searchForm = CustomerSearchForm.get(paramMap);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             recordDomain.setStatus("error");
@@ -45,6 +43,18 @@ public class CustomerController {
         }
 
         logger.debug("====> " + searchForm.toString());
+
+        if(searchForm.getCmd().equalsIgnoreCase("save")) {
+            recordDomain = save(searchForm);
+        } else {
+            recordDomain = search(searchForm);
+        }
+
+        return recordDomain;
+    }
+
+    private RecordDomain search(SearchForm searchForm) {
+        RecordDomain recordDomain = new RecordDomain();
         Pageable pageable = searchForm.getPageable();
         Page<Customer> customerPage;
         recordDomain.setStatus("success");
@@ -60,4 +70,13 @@ public class CustomerController {
         recordDomain.setRecords(List.class.cast(customerPage.getContent()));
         return recordDomain;
     }
+
+    private RecordDomain save(CustomerSearchForm searchForm) {
+        RecordDomain recordDomain = new RecordDomain();
+        List<CustomerChanges> changes = searchForm.getChanges();
+        customerService.update(changes);
+        recordDomain.setStatus("success");
+        return recordDomain;
+    }
+
 }

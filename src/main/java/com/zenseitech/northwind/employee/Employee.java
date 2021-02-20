@@ -39,7 +39,9 @@ public class Employee {
     public void setFromFullName(String fullName) {
         String [] names = fullName.split(" ");
         this.firstName = names[0];
-        this.lastName = names[1];
+        if(names.length > 1) {
+            this.lastName = names[1];
+        }
     }
 
     /**

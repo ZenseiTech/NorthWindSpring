@@ -125,7 +125,7 @@ public class CustomerRepositorySQLiteTest {
         Page<Customer> customerPage = customerRepository.findAll(customerServiceDefault.getSpecification(customerSearch), pageable);
 
         assertThat(customerPage.getNumberOfElements()).isEqualTo(3);
-        assertThat(customerPage.getTotalElements()).isEqualTo(28);
+        assertThat(customerPage.getTotalElements()).isEqualTo(27);
     }
 
     @Test

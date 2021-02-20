@@ -18,7 +18,7 @@ public class SearchForm {
     private String cmd;
     private int limit;
     private int offset;
-    private List<Integer> selected;
+    private List selected;
     private String searchLogic;
     private List<Search> search;
     private List<Sort> sort;

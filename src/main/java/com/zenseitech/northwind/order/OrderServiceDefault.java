@@ -19,40 +19,31 @@ import java.util.List;
 @Service
 public class OrderServiceDefault implements OrderService {
 
-    private final OrderRepository orderRepository;
-    private final ShipperRepository shipperRepository;
-    private final EmployeeRepository employeeRepository;
-    private final CustomerRepository customerRepository;
+    private final OrderViewRepository orderViewRepository;
 
     @Autowired
-    public OrderServiceDefault(OrderRepository orderRepository,
-                               ShipperRepository shipperRepository,
-                               EmployeeRepository employeeRepository,
-                               CustomerRepository customerRepository) {
-        this.orderRepository = orderRepository;
-        this.shipperRepository = shipperRepository;
-        this.employeeRepository = employeeRepository;
-        this.customerRepository = customerRepository;
+    public OrderServiceDefault(OrderViewRepository orderViewRepository) {
+        this.orderViewRepository = orderViewRepository;
     }
 
     @Override
-    public Page<Order> search(Pageable pageable) {
-        return this.orderRepository.findAll(pageable);
+    public Page<OrderView> search(Pageable pageable) {
+        return this.orderViewRepository.findAll(pageable);
     }
 
     @Override
-    public Page<Order> search(OrderSearch orderSearch, Pageable pageable) {
-        Specification<Order> specification = getSpecification(orderSearch);
-        return this.orderRepository.findAll(specification, pageable);
+    public Page<OrderView> search(OrderSearch orderSearch, Pageable pageable) {
+        Specification<OrderView> specification = getSpecification(orderSearch);
+        return this.orderViewRepository.findAll(specification, pageable);
     }
 
-    protected Specification<Order> getSpecification(OrderSearch orderSearch) {
+    protected Specification<OrderView> getSpecification(OrderSearch orderSearch) {
         Specification<Object> specification = Specification
                 .where(Search.getIntegerSpecification(orderSearch.getIdValue(), orderSearch.getIdField(), orderSearch.getIdSearchType()))
 
                 .and(Search.getDateStringSpecification(orderSearch.getOrderDateValue(), orderSearch.getOrderDateField(), orderSearch.getOrderDateSearchType()))
 
-                .and(Search.getIntegerSpecification(getEmployeeId(orderSearch.getEmployeeFullNameValue()), orderSearch.getEmployeeFullNameField(), orderSearch.getEmployeeFullNameSearchType()))
+                .and(Search.getStringSpecification(orderSearch.getEmployeeFullNameValue(), orderSearch.getEmployeeFullNameField(), orderSearch.getEmployeeFullNameSearchType()))
 
                 .and(Search.getStringSpecification(orderSearch.getRequiredDateValue(), orderSearch.getRequiredDateField(), orderSearch.getRequiredDateSearchType()))
 
@@ -60,9 +51,9 @@ public class OrderServiceDefault implements OrderService {
 
                 .and(Search.getStringSpecification(orderSearch.getShipNameValue(), orderSearch.getShipNameField(), orderSearch.getShipNameSearchType()))
 
-                .and(Search.getIntegerSpecification(getShipperId(orderSearch.getShipCompanyNameValue()), orderSearch.getShipCompanyNameField(), orderSearch.getShipCompanyNameSearchType()))
+                .and(Search.getStringSpecification(orderSearch.getShipCompanyNameValue(), orderSearch.getShipCompanyNameField(), orderSearch.getShipCompanyNameSearchType()))
 
-                .and(Search.getStringSpecification(getCustomerId(orderSearch.getCustomerCompanyNameValue()), orderSearch.getCustomerCompanyNameField(), orderSearch.getCustomerCompanyNameSearchType()))
+                .and(Search.getStringSpecification(orderSearch.getCustomerCompanyNameValue(), orderSearch.getCustomerCompanyNameField(), orderSearch.getCustomerCompanyNameSearchType()))
 
                 .and(Search.getStringSpecification(orderSearch.getCustomerIdValue(), orderSearch.getCustomerIdField(), orderSearch.getCustomerIdSearchType()))
 
@@ -79,46 +70,5 @@ public class OrderServiceDefault implements OrderService {
                 .and(Search.getStringSpecification(orderSearch.getShipCountryValue(), orderSearch.getShipCountryField(), orderSearch.getShipCountrySearchType()))
                 ;
         return Specification.class.cast(specification);
-    }
-
-    private List<Integer> getShipperId(String companyName) {
-        List<Integer> shipperIds = new ArrayList<>();
-        if(companyName != null) {
-            Shipper shipper = findByCompanyName(companyName);
-            shipperIds.add(shipper.getId());
-        }
-        return shipperIds;
-    }
-
-    private Shipper findByCompanyName(String companyName) {
-        return shipperRepository.findByCompanyName(companyName);
-    }
-
-
-    private List<Integer> getEmployeeId(String employeeFullName) {
-        List<Integer> employeeIds = new ArrayList<>();
-        if(employeeFullName != null) {
-            Employee employee = findByEmployeeFullName(employeeFullName);
-            employeeIds.add(employee.getId());
-        }
-        return employeeIds;
-    }
-
-    private Employee findByEmployeeFullName(String employeeFullName) {
-        Employee employee = new Employee();
-        employee.setFromFullName(employeeFullName);
-        return employeeRepository.findByFirstAndLastName(employee.getFirstName(), employee.getLastName());
-    }
-
-    private String getCustomerId(String companyName) {
-        if(companyName != null) {
-            Customer customer = findByCustomerCompanyName(companyName);
-            return customer.getId();
-        }
-        return null;
-    }
-
-    private Customer findByCustomerCompanyName(String companyName) {
-        return customerRepository.findByCompanyName(companyName);
     }
 }
