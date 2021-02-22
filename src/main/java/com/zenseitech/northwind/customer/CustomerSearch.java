@@ -61,57 +61,57 @@ public class CustomerSearch {
         for(Search search : searchForm.getSearch()) {
             if(search.getField().equalsIgnoreCase("id")) {
                 customerSearch.setIdValue((String)search.getValue());
-                customerSearch.setIdField(search.getField().toLowerCase());
+                customerSearch.setIdField(search.getField());
                 customerSearch.setIdSearchType(SearchType.valueOf(search.getOperator().toUpperCase().toUpperCase()));
 
             } else if(search.getField().equalsIgnoreCase("companyName")) {
                 customerSearch.setCompanyNameValue((String)search.getValue());
-                customerSearch.setCompanyNameField(search.getField().toLowerCase());
+                customerSearch.setCompanyNameField(search.getField());
                 customerSearch.setCompanyNameSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if(search.getField().equalsIgnoreCase("contactName")) {
                 customerSearch.setContactNameValue((String)search.getValue());
-                customerSearch.setContactNameField(search.getField().toLowerCase());
+                customerSearch.setContactNameField(search.getField());
                 customerSearch.setContactNameSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if(search.getField().equalsIgnoreCase("contactTitle")) {
                 customerSearch.setContactTitleValue((String)search.getValue());
-                customerSearch.setContactTitleField(search.getField().toLowerCase());
+                customerSearch.setContactTitleField(search.getField());
                 customerSearch.setContactTitleSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if(search.getField().equalsIgnoreCase("address")) {
                 customerSearch.setAddressValue((String)search.getValue());
-                customerSearch.setAddressField(search.getField().toLowerCase());
+                customerSearch.setAddressField(search.getField());
                 customerSearch.setAddressSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if(search.getField().equalsIgnoreCase("city")) {
                 customerSearch.setCityValue((String)search.getValue());
-                customerSearch.setCityField(search.getField().toLowerCase());
+                customerSearch.setCityField(search.getField());
                 customerSearch.setCitySearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if(search.getField().equalsIgnoreCase("region")) {
                 customerSearch.setRegionValue((String)search.getValue());
-                customerSearch.setRegionField(search.getField().toLowerCase());
+                customerSearch.setRegionField(search.getField());
                 customerSearch.setRegionSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if(search.getField().equalsIgnoreCase("postalCode")) {
                 customerSearch.setPostalCodeValue((String)search.getValue());
-                customerSearch.setPostalCodeField(search.getField().toLowerCase());
+                customerSearch.setPostalCodeField(search.getField());
                 customerSearch.setPostalCodeSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if(search.getField().equalsIgnoreCase("country")) {
                 customerSearch.setCountryValue((String)search.getValue());
-                customerSearch.setCountryField(search.getField().toLowerCase());
+                customerSearch.setCountryField(search.getField());
                 customerSearch.setCountrySearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if(search.getField().equalsIgnoreCase("phone")) {
                 customerSearch.setPhoneValue((String)search.getValue());
-                customerSearch.setPhoneField(search.getField().toLowerCase());
+                customerSearch.setPhoneField(search.getField());
                 customerSearch.setPhoneSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if(search.getField().equalsIgnoreCase("fax")) {
                 customerSearch.setFaxValue((String)search.getValue());
-                customerSearch.setFaxField(search.getField().toLowerCase());
+                customerSearch.setFaxField(search.getField());
                 customerSearch.setFaxSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             }

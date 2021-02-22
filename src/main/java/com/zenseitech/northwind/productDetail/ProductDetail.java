@@ -25,7 +25,7 @@ public class ProductDetail {
     private BigDecimal id;
 
     private String productName;
-    private String QuantityPerUnit;
+    private String quantityPerUnit;
     private int unitPrice;
     private int unitsInStock;
     private int unitsOnOrder;

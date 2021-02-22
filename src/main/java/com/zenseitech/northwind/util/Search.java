@@ -18,6 +18,7 @@ public class Search {
     private String type;
     private Object value;
     private String operator;
+    private String text;
 
     public static Specification<Object> getStringSpecification(String expression, String field, SearchType searchType) {
 

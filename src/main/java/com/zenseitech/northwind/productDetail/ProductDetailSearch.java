@@ -137,10 +137,10 @@ public class ProductDetailSearch {
                 productDetailSearch.setReorderLevelSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
 
             } else if (search.getField().equalsIgnoreCase("discontinued")) {
-                if (search.getValue() instanceof List) {
-                    productDetailSearch.discontinuedValue = (List) search.getValue();
+                if(((String) search.getValue()).equalsIgnoreCase("Y")) {
+                    productDetailSearch.discontinuedValue.add(1);
                 } else {
-                    productDetailSearch.discontinuedValue.add((Integer) search.getValue());
+                    productDetailSearch.discontinuedValue.add(0);
                 }
                 productDetailSearch.setDiscontinuedField(search.getField());
                 productDetailSearch.setDiscontinuedSearchType(SearchType.valueOf(search.getOperator().toUpperCase()));
