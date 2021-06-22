@@ -1,6 +1,10 @@
 package com.zenseitech.northwind.productDetail;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.zenseitech.northwind.customer.Customer;
+import com.zenseitech.northwind.customer.CustomerChanges;
+import com.zenseitech.northwind.customer.CustomerSearch;
+import com.zenseitech.northwind.customer.CustomerSearchForm;
 import com.zenseitech.northwind.util.RecordDomain;
 import com.zenseitech.northwind.util.SearchForm;
 import org.slf4j.Logger;
@@ -33,10 +37,10 @@ public class ProductDetailController {
     public RecordDomain searchProducts(@RequestParam MultiValueMap<String,String> paramMap) {
 
         RecordDomain recordDomain = new RecordDomain();
-        SearchForm searchForm;
+        ProductDetailSearchForm searchForm;
 
         try {
-            searchForm = SearchForm.get(paramMap);
+            searchForm = ProductDetailSearchForm.get(paramMap);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             recordDomain.setStatus("error");
@@ -46,8 +50,21 @@ public class ProductDetailController {
         logger.debug("====> " + searchForm.toString());
         recordDomain.setStatus("success");
 
+        if(searchForm.getCmd().equalsIgnoreCase("save")) {
+            // should not save since this object comes from a view ...
+//            recordDomain = save(searchForm);
+        } else {
+            recordDomain = search(searchForm);
+        }
+
+        return recordDomain;
+    }
+
+    private RecordDomain search(SearchForm searchForm) {
+        RecordDomain recordDomain = new RecordDomain();
         Pageable pageable = searchForm.getPageable();
         Page<ProductDetail> productDetailPage;
+        recordDomain.setStatus("success");
 
         if(searchForm.getSearch() == null) {
             productDetailPage = productDetailService.search(pageable);
@@ -58,6 +75,14 @@ public class ProductDetailController {
 
         recordDomain.setTotal(productDetailPage.getTotalElements());
         recordDomain.setRecords(List.class.cast(productDetailPage.getContent()));
+        return recordDomain;
+    }
+
+    private RecordDomain save(ProductDetailSearchForm searchForm) {
+        RecordDomain recordDomain = new RecordDomain();
+        List<ProductDetailsChanges> changes = searchForm.getChanges();
+        productDetailService.update(changes);
+        recordDomain.setStatus("success");
         return recordDomain;
     }
 }

@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 public class DataSourceConfiguration {
 
 //    https://www.baeldung.com/spring-profiles
+//    https://www.baeldung.com/properties-with-spring
 
     public static final String PROFILE_SQLITE = "sqlite";
 
@@ -23,10 +24,10 @@ public class DataSourceConfiguration {
     @Bean
     public DataSource developmentDataSource() {
         BasicDataSource ds = new BasicDataSource();
-        ds.setDriverClassName(env.getProperty("jdbc.driverClassName"));
-        ds.setUrl(env.getProperty("jdbc.url"));
-        ds.setUsername(env.getProperty("jdbc.username"));
-        ds.setPassword(env.getProperty("jdbc.password"));
+        ds.setDriverClassName(env.getProperty("sqlite.jdbc.driverClassName"));
+        ds.setUrl(env.getProperty("sqlite.jdbc.url"));
+        ds.setUsername(env.getProperty("sqlite.jdbc.username"));
+        ds.setPassword(env.getProperty("sqlite.jdbc.password"));
         return ds;
     }
 

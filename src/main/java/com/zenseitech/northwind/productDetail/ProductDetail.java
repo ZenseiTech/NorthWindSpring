@@ -22,7 +22,7 @@ public class ProductDetail {
     }
 
     @Id
-    private BigDecimal id;
+    private Integer id;
 
     private String productName;
     private String quantityPerUnit;
@@ -40,7 +40,7 @@ public class ProductDetail {
      * w2ui unique required value
      * @return
      */
-    public BigDecimal getRecid() {
+    public Integer getRecid() {
         return id;
     }
 }

@@ -29,6 +29,7 @@ public class CustomerRepositoryTest {
 
     @Before
     public void setUp() {
+        // Seems spring creates an in memory database, we have to add some data ...
         customerRepository.save(createCustomer("1", "customer1", "Mexico"));
         customerRepository.save(createCustomer("2", "customer2", "Mexico"));
     }

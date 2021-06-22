@@ -11,16 +11,9 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "Product")
 @Data
-@Builder
-//@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
+@NoArgsConstructor
 @ToString
 public class Product {
-
-    public Product() {
-    }
 
     @Id
     private BigDecimal id;

@@ -10,15 +10,10 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "OrderDetail")
 @Data
-@Builder
-@AllArgsConstructor
-@Getter
-@Setter
 @ToString
 public class OrderDetail {
 
     public OrderDetail() {
-
     }
 
     @Id
