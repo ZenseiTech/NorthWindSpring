@@ -8,4 +8,8 @@ As a database is using a sample of the famous Microsoft NorthWind Traders databa
 
 Technologies used are: Spring, SpringBoot, SpringData JPA
 
+export JAVA_HOME="$HOME/apps/openlogic-openjdk-8u382-b05-linux-x64"
+
+mvn clean install
+
 java -Dspring.profiles.active=sqlite -jar target/Northwind-0.0.1-SNAPSHOT.jar
