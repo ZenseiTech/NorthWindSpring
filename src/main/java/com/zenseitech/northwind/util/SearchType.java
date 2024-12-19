@@ -6,11 +6,10 @@ public enum SearchType {
     CONTAINS("contains"),
     ENDS("ends"),
     BETWEEN("between"),
-    LESS_THAN("less than"),
-    MORE_THAN("more than"),
+    LESS("less than"),
+    MORE("more than"),
     BEFORE("before"),
-    AFTER("after")
-    ;
+    AFTER("after");
 
     private final String searchId;
 
